@@ -1,0 +1,28 @@
+{
+  "name": "@manydesigns/portofino",
+  "version": "1.0.0",
+  "description": "A wrapper for portofino API endpoints",
+  "author": "Manydesigns",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "npm run build -- -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "date-fns": "^2.15.0",
+    "qs": "^6.9.4",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "vuepress": "^1.5.2"
+  }
+}
