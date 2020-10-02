@@ -1,7 +1,7 @@
 import {Action} from './internal';
 import Type from "../entity/TypeEnum";
 import CrudActionEntity from "../entity/CrudActionEntity";
-import {makeSearchObj, mapClassAccessorToPropertiesDefinition} from "../utils/crudActionDataMapper";
+import {makeSearchObj, makeSortObj, mapClassAccessorToPropertiesDefinition} from "../utils/crudActionDataMapper";
 import NooNoo from "../NooNoo";
 import PortofinoSelectionProvider from "./crudAction/SelectionProvider";
 import SelectionProvider from "./crudAction/SelectionProvider";
@@ -13,6 +13,7 @@ export interface SearchOptions {
   page: number;
   pageSize?: number;
   filters?: object;
+  sort?: { direction, property }
 }
 
 interface PortofinoCrudConfig {
@@ -37,7 +38,6 @@ export interface PortofinoEntityProperty {
   searchable: boolean;
   annotations: string[];
 }
-
 
 
 export class CrudAction extends Action {
@@ -113,9 +113,10 @@ export class CrudAction extends Action {
 
   async search(options?: SearchOptions) {
     const {
-      page = 1,
+      page = 0,
       pageSize = 10,
-      filters = null
+      filters = null,
+      sort = null,
     } = options || {};
 
     try {
@@ -125,7 +126,8 @@ export class CrudAction extends Action {
         paramsSerializer: params => qs.stringify(params, {indices: false}),
         params: {
           maxResults: pageSize,
-          firstResult: (page - 1) * pageSize,
+          firstResult: page ? ((page - 1) * pageSize) : undefined,
+          ...makeSortObj(sort),
           ...makeSearchObj(filters, this._properties),
         },
       });

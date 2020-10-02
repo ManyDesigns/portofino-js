@@ -17,11 +17,17 @@ export default class Portofino {
   private constructor() {}
 
   static connect(config: PortofinoConfig) {
-    console.debug('[Portofino] Connecting to ', config.url || '/api')
+    const baseURL = config.axiosInstance ? '' : (config.url || '/api');
+
+    if (baseURL)
+      console.debug('[Portofino] Connecting to ', baseURL);
+    else
+      console.debug('[Portofino] Connecting via axios instance');
+
     if (Portofino.rootAction)
       throw new Error("PortofinoJS is already connected!")
 
-    const noo = NooNoo.create(config.url || '/api', config.axiosInstance);
+    const noo = NooNoo.create(baseURL, config.axiosInstance);
     this.rootAction = new RootAction(noo);
 
     /** Login setup **/
