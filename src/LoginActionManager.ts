@@ -1,10 +1,29 @@
-import {Action} from "./internal";
-import NooNoo from "../NooNoo";
+import NooNoo from "./NooNoo";
 
+export default class LoginActionManager {
+  readonly http: NooNoo;
+
+  constructor(nooNoo: NooNoo) {
+    //If you want to customize it, do a pr, I have no sbatti
+    this.http = nooNoo.create('login')
+  }
+
+  async passwordReset(email: String, siteName: String, resetPageURL: String) {
+    await this.http.post(':send-reset-password-email', {
+      email: email,
+      siteNameOrAddress: siteName,
+      loginPageUrl: resetPageURL,
+    });
+  }
+
+  async doPasswordReset(token: String, newPassword: String) {
+    return await this.http.post(':reset-password', {token, newPassword});
+  }
+}
+
+
+/*
 const qs = require('qs');
-
-// type AuthChangeCallback = () => void;
-
 export class LoginAction extends Action {
   private _username: string;
   private _displayName: string;
@@ -17,17 +36,14 @@ export class LoginAction extends Action {
 
     if (jwt) {
       authInstance._jwt = jwt
-      // axios.defaults.headers["Authorization"] = authInstance._jwt;
       await authInstance.fetchUserData();
     }
-
     return authInstance;
   }
 
   private async fetchUserData() {
     try {
       const {data: user} = await this.http.get('');
-      console.debug('[Portofino] User debug data', user);
       return user;
     } catch (e) {
       console.warn('[Portofino] Session expired, jwt removed from local storage');
@@ -59,9 +75,6 @@ export class LoginAction extends Action {
       await this.http.delete('');
   }
 
-  isAuthenticated() {
-    return !!this._jwt;
-  }
-
-  //TODO onAuthStateChanged(callback: AuthChangeCallback) {}
+  isAuthenticated() {}
 }
+*/
