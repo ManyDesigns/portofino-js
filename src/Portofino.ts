@@ -1,6 +1,7 @@
-import {Action, LoginAction, RootAction} from "./actions/internal";
+import {Action, RootAction} from "./actions/internal";
 import {AxiosInstance} from "axios";
 import NooNoo from "./NooNoo";
+import LoginActionManager from "./LoginActionManager";
 
 export interface PortofinoConfig {
   url: string;
@@ -12,7 +13,7 @@ export interface PortofinoConfig {
 
 export default class Portofino {
   private static rootAction: RootAction;
-  public static auth: LoginAction;
+  public static auth: LoginActionManager;
 
   private constructor() {}
 
@@ -29,17 +30,7 @@ export default class Portofino {
 
     const noo = NooNoo.create(baseURL, config.axiosInstance);
     this.rootAction = new RootAction(noo);
-
-    /** Login setup **/
-    if (config.enableAuth) {
-      const authAction = config.authAction || 'login';
-      console.debug('[Portofino] Creating auth handler on ', authAction)
-
-      //todo race conditions
-      LoginAction.createAuthInstance(noo, authAction).then(auth => {
-        this.auth = auth
-      });
-    }
+    this.auth = new LoginActionManager(noo)
   }
 
   static getAction(name): Promise<Action> {
