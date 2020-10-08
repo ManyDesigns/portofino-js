@@ -42,6 +42,8 @@ export default class CrudActionEntity {
 
   toObject(): object {
     const obj = {};
+    obj['key'] = this.key;
+    //todo vedere se deriva da un summary o da get
     this._properties.forEach(p => {
       if (p.enabled)
         obj[p.name] = this.getValue(p.name);

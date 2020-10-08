@@ -49,6 +49,14 @@ function dateToPortofinoDateString(date) {
   return isDate(date) ? date.getTime() : date;
 }
 
+export function makeSortObj(sortProperty: {direction, property}) {
+  if (!sortProperty) return {};
+  return {
+      sortDirection: sortProperty.direction,
+      sortProperty: sortProperty.property,
+  }
+}
+
 export function makeSearchObj(filters: object, properties: PortofinoEntityProperty[]) {
   const searchObj = {};
 

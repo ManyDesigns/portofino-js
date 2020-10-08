@@ -1,4 +1,8 @@
 # Portofino JS
+
+That's just a library to simplify access to the portofino endpoint to retrieve actions and data
+
+## How to install
 Run this
 ``` bash
 npm i --save @manydesigns/portofino
