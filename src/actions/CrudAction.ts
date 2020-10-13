@@ -10,6 +10,7 @@ import {isDate} from "date-fns";
 const qs = require('qs');
 
 export interface SearchOptions {
+  pagination: boolean;
   page: number;
   pageSize?: number;
   filters?: object;
@@ -113,6 +114,7 @@ export class CrudAction extends Action {
 
   async search(options?: SearchOptions) {
     const {
+      pagination = true,
       page = 0,
       pageSize = 10,
       filters = null,
@@ -125,7 +127,7 @@ export class CrudAction extends Action {
       const {data} = await this.http.get('', {
         paramsSerializer: params => qs.stringify(params, {indices: false}),
         params: {
-          maxResults: pageSize,
+          maxResults: pagination ? pageSize : undefined,
           firstResult: page ? ((page - 1) * pageSize) : undefined,
           ...makeSortObj(sort),
           ...makeSearchObj(filters, this._properties),
