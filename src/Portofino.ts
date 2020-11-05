@@ -6,9 +6,8 @@ import LoginActionManager from "./LoginActionManager";
 export interface PortofinoConfig {
   url: string;
   axiosInstance?: AxiosInstance;
-  enableAuth?: boolean;
   authAction?: string;
-  //todo keepSessionAlive:boolean -> definisce se creare una chiamata ricorrente per mantenere valida la sessione
+  crudActionClasses?: string[];
 }
 
 export default class Portofino {
@@ -29,7 +28,7 @@ export default class Portofino {
       throw new Error("PortofinoJS is already connected!")
 
     const noo = NooNoo.create(baseURL, config.axiosInstance);
-    this.rootAction = new RootAction(noo);
+    this.rootAction = new RootAction(noo, config.crudActionClasses);
     this.auth = new LoginActionManager(noo)
   }
 

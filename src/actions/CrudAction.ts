@@ -53,8 +53,9 @@ export class CrudAction extends Action {
     configuration: any,
     classAccessor: any,
     selProviders: any,
+    crudActionClasses: string[],
   ) {
-    super(_nooNoo, action);
+    super(_nooNoo, action, crudActionClasses);
     this._properties = mapClassAccessorToPropertiesDefinition(classAccessor);
     this._selectionProviders = selProviders
       .map(sp => new SelectionProvider(this.http, sp.searchDisplayMode, sp.fieldNames, sp.name, sp.displayMode));
@@ -70,7 +71,7 @@ export class CrudAction extends Action {
     }
   }
 
-  public static async getCrudAction(_nooNoo: NooNoo, action: string) {
+  public static async getCrudAction(_nooNoo: NooNoo, action: string, crudActionClasses: string[]) {
     const [
       {data: configuration},
       {data: classAccessor},
@@ -80,7 +81,7 @@ export class CrudAction extends Action {
       _nooNoo.get(`${action}/:classAccessor`),
       _nooNoo.get(`${action}/:selectionProvider`),
     ]);
-    return new CrudAction(_nooNoo, action, configuration, classAccessor, selProviders);
+    return new CrudAction(_nooNoo, action, configuration, classAccessor, selProviders, crudActionClasses);
   }
 
 
