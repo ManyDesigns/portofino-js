@@ -5,7 +5,7 @@ import {makeSearchObj, makeSortObj, mapClassAccessorToPropertiesDefinition} from
 import NooNoo from "../NooNoo";
 import PortofinoSelectionProvider from "./crudAction/SelectionProvider";
 import SelectionProvider from "./crudAction/SelectionProvider";
-import {isDate} from "date-fns";
+import {convertJSTypeToValue} from "../utils/EntityUtils";
 
 const qs = require('qs');
 
@@ -48,16 +48,17 @@ export class CrudAction extends Action {
   private readonly _selectionProviders: SelectionProvider[];
 
   constructor(
-    _nooNoo: NooNoo,
-    public action: string,
-    configuration: any,
-    classAccessor: any,
-    selProviders: any,
+      _nooNoo: NooNoo,
+      public action: string,
+      configuration: any,
+      classAccessor: any,
+      selProviders: any,
+      crudActionClasses: string[],
   ) {
-    super(_nooNoo, action);
+    super(_nooNoo, action, crudActionClasses);
     this._properties = mapClassAccessorToPropertiesDefinition(classAccessor);
     this._selectionProviders = selProviders
-      .map(sp => new SelectionProvider(this.http, sp.searchDisplayMode, sp.fieldNames, sp.name, sp.displayMode));
+        .map(sp => new SelectionProvider(this.http, sp.searchDisplayMode, sp.fieldNames, sp.name, sp.displayMode));
     this.config = {
       name: configuration.name,
       searchTitle: configuration.searchTitle,
@@ -70,7 +71,7 @@ export class CrudAction extends Action {
     }
   }
 
-  public static async getCrudAction(_nooNoo: NooNoo, action: string) {
+  public static async getCrudAction(_nooNoo: NooNoo, action: string, crudActionClasses: string[]) {
     const [
       {data: configuration},
       {data: classAccessor},
@@ -80,7 +81,7 @@ export class CrudAction extends Action {
       _nooNoo.get(`${action}/:classAccessor`),
       _nooNoo.get(`${action}/:selectionProvider`),
     ]);
-    return new CrudAction(_nooNoo, action, configuration, classAccessor, selProviders);
+    return new CrudAction(_nooNoo, action, configuration, classAccessor, selProviders, crudActionClasses);
   }
 
 
@@ -107,7 +108,7 @@ export class CrudAction extends Action {
 
   getSelectionProviderDefinitionByFieldName(fieldName: string) {
     return this._selectionProviders
-      .find(sp => sp.fieldNames.includes(fieldName));
+        .find(sp => sp.fieldNames.includes(fieldName));
   }
 
   /** Entity methods **/
@@ -128,7 +129,7 @@ export class CrudAction extends Action {
         paramsSerializer: params => qs.stringify(params, {indices: false}),
         params: {
           maxResults: pagination ? pageSize : undefined,
-          firstResult: page ? ((page - 1) * pageSize) : undefined,
+          firstResult: (page && pagination) ? ((page - 1) * pageSize) : undefined,
           ...makeSortObj(sort),
           ...makeSearchObj(filters, this._properties),
         },
@@ -136,7 +137,7 @@ export class CrudAction extends Action {
 
       this.totalRecords = data.totalRecords;
       return data.records
-        .map(record => new CrudActionEntity(this.http, record, this._properties));
+          .map(record => new CrudActionEntity(this.http, record, this._properties));
     } catch (e) {
       console.error('[Portofino] Unable to fetch data');
       throw e;
@@ -145,20 +146,19 @@ export class CrudAction extends Action {
 
   async get(id: string) {
     return await this.http.get(`${id}`)
-      .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
+        .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
   }
 
   async create(data: any) {
-    const payload = {...data};
+    const payload = {};
 
-    //todo fare utils e usarla anche in update
-    this._properties.forEach(prop => {
-      if (prop.type === Type.Timestamp && isDate(payload[prop.name]))
-        payload[prop.name] = payload[prop.name].getTime();
+    this._properties.forEach(p => {
+      if (data[p.name])
+        payload[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 
     return await this.http.post('', payload)
-      .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
+        .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
   }
 
   // async update(id: string, data: any) {

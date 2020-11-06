@@ -1,6 +1,6 @@
 import {PortofinoEntityProperty} from "../actions/CrudAction";
-import Type from "../entity/TypeEnum";
 import {isDate} from 'date-fns';
+import {getTypeFromJavaType} from "./EntityUtils";
 
 const annotationTypes = {
   'com.manydesigns.elements.annotations.InSummary': 'inSummary',
@@ -9,20 +9,6 @@ const annotationTypes = {
   'com.manydesigns.elements.annotations.Updatable': 'updatable',
   'com.manydesigns.elements.annotations.Enabled': 'enabled',
   'com.manydesigns.elements.annotations.Required': 'required',
-}
-
-const typeBindings = {
-  'java.lang.String': Type.String,
-  'java.sql.Timestamp': Type.Timestamp,
-  'java.lang.Long': Type.Number,
-  'java.math.BigDecimal': Type.Number,
-  'java.lang.Boolean': Type.Boolean,
-}
-
-function getTypeFromJavaType(type) {
-  if (!typeBindings[type])
-    console.warn("[Portofino] Unknown attribute type", type, 'fallback to string');
-  return typeBindings[type] || Type.String;
 }
 
 export function mapClassAccessorToPropertiesDefinition(classAccessor): PortofinoEntityProperty[] {

@@ -1,8 +1,6 @@
 import {PortofinoEntityProperty} from "../actions/CrudAction";
-import {convertValueToType} from "../utils/EntityUtils";
+import {convertJSTypeToValue, convertValueToJSType} from "../utils/EntityUtils";
 import NooNoo from "../NooNoo";
-import Type from "./TypeEnum";
-import {isDate} from 'date-fns';
 
 export default class CrudActionEntity {
   public readonly _isPortofinoEntity = true;
@@ -17,6 +15,7 @@ export default class CrudActionEntity {
         .forEach(attr => {
           Object.defineProperty(this, attr, {
             get: () => this.getValue(attr),
+            set: () => console.warn('[Portofino] Cannot set value of a crud action entity'),
           });
         });
   }
@@ -29,7 +28,7 @@ export default class CrudActionEntity {
     const propDef = this._properties.find(p => p.name == propName);
     const prop = this.getProperty(propName);
     if (prop)
-      return convertValueToType(propDef.type, prop.value);
+      return convertValueToJSType(propDef.type, prop.value);
     return null;
   }
 
@@ -59,27 +58,9 @@ export default class CrudActionEntity {
   async update(data: object) {
     const pData = {};
 
-    //TODO Put into a util file
-    function jsToPortofino(type, val) {
-      switch (type) {
-        case Type.Timestamp:
-          if (!val) return null;
-          const date = isDate(val) ? val : new Date(val);
-          return date.getTime();
-        case Type.String:
-          if (val === Object)
-            return JSON.stringify(val);
-          return val;
-        default:
-          return val;
-      }
-    }
-
     this._properties.forEach(p => {
       if (data[p.name])
-        pData[p.name] = {
-          value: jsToPortofino(p.type, data[p.name])
-        };
+        pData[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 
 

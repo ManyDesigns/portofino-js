@@ -6,25 +6,22 @@ export class Action {
   public _isPortofinoAction = true;
   readonly http: NooNoo;
 
-  constructor(parentNooNoo: NooNoo, action: string) {
+  constructor(parentNooNoo: NooNoo, action: string, private crudActionClasses: string[] = []) {
     this.http = parentNooNoo.create(action)
   }
 
-  async getAction(name) {
+  async getAction(name: string): Promise<Action> {
     console.debug(`[Portofino] Getting action '${name}'`);
     try {
       const {data} = await this.http.get(`${name}/:description`);
-      switch (data.superclass) {
-        //todo TAPULLO Trovare modo generale
-        case "com.manydesigns.mdhr.crud.LogCrudAction":
-        case ActionTypes.crudActionType:
-        case 'com.manydesigns.mdhr.crud.LogCrudAction':
-          return CrudAction.getCrudAction(this.http, name);
-        case ActionTypes.customActionType:
-          return new Action(this.http, name);
+
+      if (ActionTypes.crudActionType === data.superclass || this.crudActionClasses.includes(data.superclass)) {
+        return CrudAction.getCrudAction(this.http, name, this.crudActionClasses);
+      } else if (ActionTypes.customActionType === data.superclass) {
+        return new Action(this.http, name, this.crudActionClasses);
       }
     } catch (e) {
-      console.error(e.message); //todo PortofinoError
+      console.error('[Portofino]', e.message); //todo PortofinoError
       throw e;
     }
 
