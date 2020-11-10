@@ -1,8 +1,8 @@
 import {PortofinoEntityProperty} from "../actions/CrudAction";
-import {isDate} from 'date-fns';
-import {getTypeFromJavaType} from "./EntityUtils";
+import {convertJSTypeToValue, getTypeFromJavaType} from "./EntityUtils";
+import Type from "../entity/TypeEnum";
 
-const annotationTypes: {[key: string]: string} = {
+const annotationTypes: { [key: string]: string } = {
   'com.manydesigns.elements.annotations.InSummary': 'inSummary',
   'com.manydesigns.elements.annotations.Searchable': 'searchable',
   'com.manydesigns.elements.annotations.Insertable': 'insertable',
@@ -31,15 +31,11 @@ export function mapClassAccessorToPropertiesDefinition(classAccessor: any): Port
   })
 }
 
-function dateToPortofinoDateString(date: any) {
-  return isDate(date) ? date.getTime() : date;
-}
-
-export function makeSortObj(sortProperty: {direction: string, property: string}) {
+export function makeSortObj(sortProperty: { direction: string, property: string }) {
   if (!sortProperty) return {};
   return {
-      sortDirection: sortProperty.direction,
-      sortProperty: sortProperty.property,
+    sortDirection: sortProperty.direction,
+    sortProperty: sortProperty.property,
   }
 }
 
@@ -50,6 +46,7 @@ export function makeSearchObj(filters: object, properties: PortofinoEntityProper
 
   //TODO basare la generazione dell props su tipo attr
   Object.entries(filters).forEach(([key, value]) => {
+    //TODO User property to determinate the Type
     if (value) {
       if (typeof value === 'object') {
 
@@ -65,9 +62,9 @@ export function makeSearchObj(filters: object, properties: PortofinoEntityProper
 
           //Numero, data
           if (value.min)
-            searchObj[`search_${key}_min`] = dateToPortofinoDateString(value.min);
+            searchObj[`search_${key}_min`] = convertJSTypeToValue(Type.Date, value.min);
           if (value.max)
-            searchObj[`search_${key}_max`] = dateToPortofinoDateString(value.max);
+            searchObj[`search_${key}_max`] = convertJSTypeToValue(Type.Date, value.max);
         }
 
       } else {
