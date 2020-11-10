@@ -29,7 +29,7 @@ export default class CrudActionEntity {
     const prop = this.getProperty(propName);
     if (prop)
       return convertValueToJSType(propDef.type, prop.value);
-    return null;
+    return undefined;
   }
 
   getDisplayValue(propName: string): string {
