@@ -59,7 +59,7 @@ export default class CrudActionEntity {
     const pData = {};
 
     this._properties.forEach(p => {
-      if (data[p.name])
+      if (data[p.name] !== undefined)
         pData[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 

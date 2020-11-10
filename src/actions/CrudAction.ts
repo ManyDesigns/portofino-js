@@ -153,7 +153,7 @@ export class CrudAction extends Action {
     const payload = {};
 
     this._properties.forEach(p => {
-      if (data[p.name])
+      if (data[p.name] !== undefined)
         payload[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 
