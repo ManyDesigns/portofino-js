@@ -3,7 +3,9 @@
     "module": "commonjs",
     "target": "es5",
     "declaration": true,
-    "allowJs": true,
+    "removeComments": true,
+    "allowJs": false,
+    "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
     "lib": [
@@ -12,5 +14,10 @@
       "scripthost",
       "es2015.promise"
     ]
-  }
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
