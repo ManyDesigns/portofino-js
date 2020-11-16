@@ -1,21 +1,23 @@
 import Type from "../entity/TypeEnum";
-import {getTime} from "date-fns";
 
-const typeBindings = {
-  'java.lang.String': Type.String,
-  'java.lang.Long': Type.Number,
-  'java.math.BigDecimal': Type.Number,
-  'java.lang.Boolean': Type.Boolean,
-  'java.sql.Date': Type.Date,
-  'java.sql.Timestamp': Type.Date,
-  'java.sql.Time': Type.Date,
-  'java.util.Date': Type.Date,
-}
-
-export function getTypeFromJavaType(type) {
-  if (!typeBindings[type])
-    console.warn("[Portofino] Unknown attribute type", type, 'fallback to string');
-  return typeBindings[type] || Type.String;
+export function getTypeFromJavaType(type: string): Type {
+  switch (type) {
+    case 'java.lang.String':
+      return Type.String;
+    case 'java.lang.Long':
+    case 'java.math.BigDecimal':
+      return Type.Number;
+    case 'java.lang.Boolean':
+      return Type.Boolean;
+    case 'java.sql.Date':
+    case 'java.sql.Timestamp':
+    case 'java.sql.Time':
+    case 'java.util.Date':
+      return Type.Date;
+    default:
+      console.warn("[Portofino] Unknown attribute type", type, 'fallback to string');
+      return Type.String;
+  }
 }
 
 export function convertValueToJSType(type: Type, value: any): any {
@@ -33,16 +35,28 @@ export function convertValueToJSType(type: Type, value: any): any {
   }
 }
 
+function anyDateToTimestamp(value: any) {
+  if (!value && value !== 0)
+    return null;
+
+  let date = value;
+
+  if (value._isAMomentObject)
+    date = value.toDate();
+
+  if (!isNaN(date))
+    date = new Date(date);
+
+  if (typeof value === 'string' || value instanceof String)
+    date = new Date(value.toString());
+
+  return date.getTime();
+}
+
 export function convertJSTypeToValue(type: Type, value: any): any {
   switch (type) {
     case Type.Date:
-      if (!value) return null;
-      let date = value;
-      if (value._isAMomentObject)
-        date = value.toDate();
-      if (typeof value === 'string' || value instanceof String)
-        date = new Date(value.toString());
-      return getTime(date);
+      return anyDateToTimestamp(value);
 
     case Type.String:
       if (typeof value === 'object' && value !== null)

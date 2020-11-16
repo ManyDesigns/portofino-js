@@ -32,7 +32,7 @@ export default class Portofino {
     this.auth = new LoginActionManager(noo)
   }
 
-  static getAction(name): Promise<Action> {
+  static getAction(name: string): Promise<Action> {
     if (!Portofino.rootAction)
       throw new Error("PortofinoJS is not connected!")
     return this.rootAction.getAction(name);

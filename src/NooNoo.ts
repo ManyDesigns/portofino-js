@@ -47,7 +47,7 @@ export default class NooNoo {
     return this._instance.delete(this.getRequestUrl(url), config)
   }
 
-  static create(baseURL: string, instance: AxiosInstance) {
+  static create(baseURL: string, instance: AxiosInstance | undefined) {
     if (!instance)
       instance = axios.create();
     return new NooNoo(baseURL, instance);

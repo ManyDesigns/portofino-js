@@ -29,7 +29,7 @@ export default class CrudActionEntity {
     const prop = this.getProperty(propName);
     if (prop)
       return convertValueToJSType(propDef.type, prop.value);
-    return null;
+    return undefined;
   }
 
   getDisplayValue(propName: string): string {
@@ -59,7 +59,7 @@ export default class CrudActionEntity {
     const pData = {};
 
     this._properties.forEach(p => {
-      if (data[p.name])
+      if (data[p.name] !== undefined)
         pData[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 

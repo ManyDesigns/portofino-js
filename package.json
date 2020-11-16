@@ -1,6 +1,6 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "npm run build -- -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
@@ -23,6 +23,10 @@
     "typescript": "^3.9.6"
   },
   "devDependencies": {
-    "vuepress": "^1.5.2"
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.3",
+    "vuepress": "^1.5.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^8.10.2"
   }
 }

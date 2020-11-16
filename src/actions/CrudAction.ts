@@ -95,6 +95,18 @@ export class CrudAction extends Action {
     return this._properties.find(p => p.name === name);
   }
 
+  getSummaryAttributes(): PortofinoEntityProperty[] {
+    return this.getAttributes().filter(a => a.inSummary);
+  }
+
+  getInsertableAttributes(): PortofinoEntityProperty[] {
+    return this.getAttributes().filter(a => a.insertable);
+  }
+
+  getUpdatableAttributes(): PortofinoEntityProperty[] {
+    return this.getAttributes().filter(a => a.updatable);
+  }
+
 
   /** Selection providers **/
 
@@ -103,11 +115,11 @@ export class CrudAction extends Action {
   }
 
   getSelectionProvider(name: string): PortofinoSelectionProvider {
-    return this._selectionProviders.find(sp => sp.name === name);
+    return this.getSelectionProviders().find(sp => sp.name === name);
   }
 
   getSelectionProviderDefinitionByFieldName(fieldName: string) {
-    return this._selectionProviders
+    return this.getSelectionProviders()
         .find(sp => sp.fieldNames.includes(fieldName));
   }
 
@@ -153,7 +165,7 @@ export class CrudAction extends Action {
     const payload = {};
 
     this._properties.forEach(p => {
-      if (data[p.name])
+      if (data[p.name] !== undefined)
         payload[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 
