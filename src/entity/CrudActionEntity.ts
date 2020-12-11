@@ -56,7 +56,7 @@ export default class CrudActionEntity {
   }
 
   async update(data: object) {
-    const pData = {};
+    const pData = {...data};
 
     this._properties.forEach(p => {
       if (data[p.name] !== undefined)
