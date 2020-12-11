@@ -162,7 +162,7 @@ export class CrudAction extends Action {
   }
 
   async create(data: any) {
-    const payload = {};
+    const payload = {...data};
 
     this._properties.forEach(p => {
       if (data[p.name] !== undefined)
