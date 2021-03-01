@@ -1,5 +1,5 @@
-import ActionTypes from "./ActionTypes";
-import {CrudAction} from './internal'
+import ActionTypes from "../ActionTypes";
+import { CrudAction } from './internal'
 import NooNoo from "../NooNoo";
 
 export class Action {
@@ -13,10 +13,10 @@ export class Action {
   async getAction(name: string): Promise<Action> {
     console.debug(`[Portofino] Getting action '${name}'`);
     try {
-      const {data} = await this.http.get(`${name}/:description`);
+      const { data } = await this.http.get(`${name}/:description`);
 
       if (ActionTypes.crudActionType === data.superclass || this.crudActionClasses.includes(data.superclass)) {
-        return CrudAction.getCrudAction(this.http, name, this.crudActionClasses);
+        return await CrudAction.getCrudAction(this.http, name, this.crudActionClasses);
       } else if (ActionTypes.customActionType === data.superclass) {
         return new Action(this.http, name, this.crudActionClasses);
       }
