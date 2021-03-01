@@ -4,7 +4,7 @@ import NooNoo from "./NooNoo";
 import LoginActionManager from "./LoginActionManager";
 
 export interface PortofinoConfig {
-  url: string;
+  url?: string;
   axiosInstance?: AxiosInstance;
   authAction?: string;
   crudActionClasses?: string[];

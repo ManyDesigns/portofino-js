@@ -1,13 +1,17 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
+  "keywords": [
+    "api",
+    "portofino"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "/dist"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
@@ -17,16 +21,16 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "date-fns": "^2.15.0",
-    "qs": "^6.9.4",
-    "typescript": "^3.9.6"
+    "axios": "0.x",
+    "date-fns": "^2.x",
+    "qs": "^6.9.4"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "jest": "^26.6.3",
-    "vuepress": "^1.5.2",
     "ts-jest": "^26.2.0",
-    "ts-node": "^8.10.2"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6",
+    "vuepress": "^1.5.2"
   }
 }
