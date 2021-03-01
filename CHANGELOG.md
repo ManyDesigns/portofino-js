@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+* Session management in the LoginAction
+* Exported types and action classes from the main entrypoint
+* enable auth from the Portofino.connect config 
 
 ### Changed
+* Login action are extended as a normal action
 
 ### Deprecated
 
