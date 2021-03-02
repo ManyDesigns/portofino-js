@@ -1,4 +1,5 @@
 import Portofino from "./Portofino";
 
 export default Portofino;
-export {default as EntityType} from './entity/TypeEnum';
+export * from "./actions/internal";
+export { default as EntityType } from './entity/TypeEnum';
