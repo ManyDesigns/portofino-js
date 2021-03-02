@@ -8,10 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-* Axios request params for crud action rest methods
 
 ### Changed
-* NooNoo prevent duplicated slash inside base url
 
 ### Deprecated
 
@@ -20,6 +18,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
+
+
+## [1.2.7] - 2021-03-02
+
+### Added
+* Axios request params for crud action rest methods
+
+### Changed
+* NooNoo prevent duplicated slash inside base url
 
 
 ## [1.2.4] - 2021-03-01
