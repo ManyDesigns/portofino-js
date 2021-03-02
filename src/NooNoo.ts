@@ -1,5 +1,6 @@
 /** That's just an axios wrapper **/
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { joinPath } from './utils/utils';
 
 export default class NooNoo {
   private static _instance: AxiosInstance;
@@ -14,7 +15,7 @@ export default class NooNoo {
 
     NooNoo._instance.interceptors.request.use(config => {
       const jwt = localStorage.getItem('portofino_jwt');
-      if (jwt) 
+      if (jwt)
         config.headers.Authorization = jwt;
       return config;
     });
@@ -30,11 +31,12 @@ export default class NooNoo {
   }
 
   create(actionName: string): NooNoo {
-    return new NooNoo(`${this._baseURL}${actionName}/`);
+    const url = joinPath(this._baseURL, actionName)
+    return new NooNoo(url.toString());
   }
 
   private getRequestUrl(url?: string): string {
-    return this._baseURL + (url || '');
+    return joinPath(this._baseURL, url)
   }
 
   public get<T = any, R = AxiosResponse<T>>(url?: string, config?: AxiosRequestConfig): Promise<R> {
