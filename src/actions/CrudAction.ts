@@ -1,11 +1,12 @@
-import {Action} from './internal';
+import { Action } from './internal';
 import Type from "../entity/TypeEnum";
 import CrudActionEntity from "../entity/CrudActionEntity";
-import {makeSearchObj, makeSortObj, mapClassAccessorToPropertiesDefinition} from "../utils/crudActionDataMapper";
+import { makeSearchObj, makeSortObj, mapClassAccessorToPropertiesDefinition } from "../utils/crudActionDataMapper";
 import NooNoo from "../NooNoo";
 import PortofinoSelectionProvider from "./crudAction/SelectionProvider";
 import SelectionProvider from "./crudAction/SelectionProvider";
-import {convertJSTypeToValue} from "../utils/EntityUtils";
+import { convertJSTypeToValue } from "../utils/EntityUtils";
+import { AxiosRequestConfig } from 'axios';
 
 const qs = require('qs');
 
@@ -14,7 +15,8 @@ export interface SearchOptions {
   page: number;
   pageSize?: number;
   filters?: object;
-  sort?: { direction, property }
+  sort?: { direction, property };
+  requestOptions?: AxiosRequestConfig;
 }
 
 interface PortofinoCrudConfig {
@@ -48,17 +50,17 @@ export class CrudAction extends Action {
   private readonly _selectionProviders: SelectionProvider[];
 
   constructor(
-      _nooNoo: NooNoo,
-      public action: string,
-      configuration: any,
-      classAccessor: any,
-      selProviders: any,
-      crudActionClasses: string[],
+    _nooNoo: NooNoo,
+    public action: string,
+    configuration: any,
+    classAccessor: any,
+    selProviders: any,
+    crudActionClasses: string[],
   ) {
     super(_nooNoo, action, crudActionClasses);
     this._properties = mapClassAccessorToPropertiesDefinition(classAccessor);
     this._selectionProviders = selProviders
-        .map(sp => new SelectionProvider(this.http, sp.searchDisplayMode, sp.fieldNames, sp.name, sp.displayMode));
+      .map(sp => new SelectionProvider(this.http, sp.searchDisplayMode, sp.fieldNames, sp.name, sp.displayMode));
     this.config = {
       name: configuration.name,
       searchTitle: configuration.searchTitle,
@@ -73,9 +75,9 @@ export class CrudAction extends Action {
 
   public static async getCrudAction(_nooNoo: NooNoo, action: string, crudActionClasses: string[]) {
     const [
-      {data: configuration},
-      {data: classAccessor},
-      {data: selProviders},
+      { data: configuration },
+      { data: classAccessor },
+      { data: selProviders },
     ] = await Promise.all([
       _nooNoo.get(`${action}/:configuration`),
       _nooNoo.get(`${action}/:classAccessor`),
@@ -120,7 +122,7 @@ export class CrudAction extends Action {
 
   getSelectionProviderDefinitionByFieldName(fieldName: string) {
     return this.getSelectionProviders()
-        .find(sp => sp.fieldNames.includes(fieldName));
+      .find(sp => sp.fieldNames.includes(fieldName));
   }
 
   /** Entity methods **/
@@ -132,13 +134,15 @@ export class CrudAction extends Action {
       pageSize = 10,
       filters = null,
       sort = null,
+      requestOptions = null
     } = options || {};
 
     try {
       // https://portofino.manydesigns.com/en/docs/reference/page-types/crud/rest
       //   ?sortDirection=&searchString=&sortProperty=&maxResults=10&firstResult=10
-      const {data} = await this.http.get('', {
-        paramsSerializer: params => qs.stringify(params, {indices: false}),
+      const { data } = await this.http.get('', {
+        paramsSerializer: params => qs.stringify(params, { indices: false }),
+        ...requestOptions,
         params: {
           maxResults: pagination ? pageSize : undefined,
           firstResult: (page && pagination) ? ((page - 1) * pageSize) : undefined,
@@ -149,35 +153,35 @@ export class CrudAction extends Action {
 
       this.totalRecords = data.totalRecords;
       return data.records
-          .map(record => new CrudActionEntity(this.http, record, this._properties));
+        .map(record => new CrudActionEntity(this.http, record, this._properties));
     } catch (e) {
       console.error('[Portofino] Unable to fetch data');
       throw e;
     }
   }
 
-  async get(id: string) {
-    return await this.http.get(`${id}`)
-        .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
+  async get(id: string, requestOptions?: AxiosRequestConfig) {
+    return await this.http.get(`${id}`, requestOptions)
+      .then(({ data }) => new CrudActionEntity(this.http, data, this._properties));
   }
 
-  async create(data: any) {
-    const payload = {...data};
+  async create(data: any, requestOptions?: AxiosRequestConfig) {
+    const payload = { ...data };
 
     this._properties.forEach(p => {
       if (data[p.name] !== undefined)
         payload[p.name] = convertJSTypeToValue(p.type, data[p.name])
     });
 
-    return await this.http.post('', payload)
-        .then(({data}) => new CrudActionEntity(this.http, data, this._properties));
+    return await this.http.post('', payload, requestOptions)
+      .then(({ data }) => new CrudActionEntity(this.http, data, this._properties));
   }
 
   // async update(id: string, data: any) {
   //   return await this.axiosInstance.put(id, data);
   // }
 
-  async delete(id: string) {
-    await this.http.delete(`${id}`);
+  async delete(id: string,  requestOptions?: AxiosRequestConfig) {
+    await this.http.delete(`${id}`, requestOptions);
   }
 }

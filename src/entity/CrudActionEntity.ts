@@ -1,6 +1,7 @@
 import {PortofinoEntityProperty} from "../actions/CrudAction";
 import {convertJSTypeToValue, convertValueToJSType} from "../utils/EntityUtils";
 import NooNoo from "../NooNoo";
+import { AxiosRequestConfig } from "axios";
 
 export default class CrudActionEntity {
   public readonly _isPortofinoEntity = true;
@@ -51,11 +52,11 @@ export default class CrudActionEntity {
   }
 
   /** Rest operations **/
-  async delete() {
-    await this._nooNoo.delete(this.key)
+  async delete(requestOptions?: AxiosRequestConfig) {
+    await this._nooNoo.delete(this.key, requestOptions)
   }
 
-  async update(data: object) {
+  async update(data: object, requestOptions?: AxiosRequestConfig) {
     const pData = {...data};
 
     this._properties.forEach(p => {
@@ -64,7 +65,7 @@ export default class CrudActionEntity {
     });
 
 
-    const {data: entity} = await this._nooNoo.put(this.key.toString(), pData)
+    const {data: entity} = await this._nooNoo.put(this.key.toString(), pData, requestOptions)
     return new CrudActionEntity(this._nooNoo, entity, this._properties);
   }
 }
