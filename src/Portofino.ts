@@ -2,8 +2,6 @@ import { Action, RootAction, LoginAction } from "./actions/internal";
 import { AxiosInstance } from "axios";
 import NooNoo from "./NooNoo";
 
-export * from "./actions/internal";
-
 export interface PortofinoConfig {
   url?: string;
   axiosInstance?: AxiosInstance;
