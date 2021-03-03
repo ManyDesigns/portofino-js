@@ -1,19 +1,15 @@
-# Portofino JS
-Run this
+# Getting started
+
+Aggiungi la dipendenza
 ``` bash
 npm i --save @manydesigns/portofino
 ```
-Put that in the main js file
+
+Copia le importazioni di connessione nell'entrypoint JS
 ``` JavaScript
 import Portofino from '@manydesigns/portofino';
 Portofino.connect({
     url: 'http://localhost:8080/api', //Optional, default: '/api'
 });
 ```
-Done, now it should work 😁
-## Get an action
-``` JavaScript
-Portofino.getAction('action-name').then(action => {
-  //
-});
-```
+Fatto, tutto qui!
