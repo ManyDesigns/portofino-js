@@ -1,8 +1,8 @@
-name: Build and publish 
+name: Build and publish
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   publish-npm:
@@ -12,8 +12,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm run build
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Build project
+        run: yarn run docs:build --silent --non-interactive
+
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.npm_token }}
@@ -37,5 +50,3 @@ jobs:
           body: ${{ steps.extract_release_notes.outputs.release_notes }}
           draft: false
           prerelease: false
-
-      
