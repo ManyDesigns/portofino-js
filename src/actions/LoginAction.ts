@@ -14,8 +14,16 @@ export interface UserInfo {
   [key: string]: any;
 }
 
+interface StateChangeObserverList {
+  id: number;
+  callback: (a: UserInfo | null) => any;
+}
+
 export class LoginAction extends Action {
   private _jwt?: string;
+
+  private stateChangeObserver: StateChangeObserverList[] = [];
+  private stateChangeSequence = 0;
 
   constructor(_nooNoo: NooNoo, public action: string, crudActionClasses: string[]) {
     super(_nooNoo, action, crudActionClasses);
@@ -34,11 +42,28 @@ export class LoginAction extends Action {
     return await this.http.post(':reset-password', { resetToken, newPassword });
   }
 
-  //Autentication
+  //Auth state
   isAuthenticated() {
     return !!this._jwt;
   }
 
+  onAuthStateChanged(nextOrObserver: (a: UserInfo | null) => any): (() => any) {
+    const observerId = this.stateChangeSequence++;
+    this.stateChangeObserver.push({
+      id: observerId,
+      callback: nextOrObserver
+    });
+
+    return () => {
+      this.stateChangeObserver = this.stateChangeObserver.filter(el => el.id !== observerId);
+    }
+  }
+
+  private emitAuthStateChange(user: UserInfo) {
+    this.stateChangeObserver.forEach(({callback}) => callback(user));
+  }
+
+  //Autentication
   async getUserInfo() {
     try {
       const { data: user } = await this.http.get('');
@@ -68,6 +93,7 @@ export class LoginAction extends Action {
       });
       this._jwt = "Bearer " + login.jwt;
       localStorage.setItem(JWT_KEY, this._jwt);
+      this.emitAuthStateChange(login);
       // console.log('[Portofino] User logged in successfully', this._jwt);
     } catch (e) {
       throw e;
@@ -76,6 +102,7 @@ export class LoginAction extends Action {
 
   async logout() {
     localStorage.removeItem(JWT_KEY);
+    this.emitAuthStateChange(null);
     // delete axios.defaults.headers.Authorization;
   }
 }
