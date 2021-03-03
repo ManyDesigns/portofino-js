@@ -20,12 +20,14 @@ export default class NooNoo {
       return config;
     });
 
-    // NooNoo._instance.interceptors.response.use(response => response, error => {
-    //   const { response } = error;
-    //   if (response && response.status === 401) 
-    //     console.log("%cSession Expired", "color:orange;font-weight:bold;");
-    //   return Promise.reject(error);
-    // });
+    NooNoo._instance.interceptors.response.use(response => response, error => {
+      const { response } = error;
+      if (response && response.status === 401) {
+        localStorage.removeItem('portofino_jwt');
+        console.log("%cSession Expired", "color:orange;font-weight:bold;");
+      }
+      return Promise.reject(error);
+    });
 
     return new NooNoo(baseURL);
   }
