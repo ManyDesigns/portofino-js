@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 
+## [1.3.0] - 2021-03-03
+
+### Added
+* Login action state observer
+
+
 ## [1.2.7] - 2021-03-02
 
 ### Added
