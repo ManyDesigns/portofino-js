@@ -16,7 +16,6 @@ export interface SearchOptions {
   pageSize?: number;
   filters?: object;
   sort?: { direction, property };
-  requestOptions?: AxiosRequestConfig;
 }
 
 interface PortofinoCrudConfig {
@@ -127,14 +126,13 @@ export class CrudAction extends Action {
 
   /** Entity methods **/
 
-  async search(options?: SearchOptions) {
+  async search(options?: SearchOptions, requestOptions?: AxiosRequestConfig) {
     const {
       pagination = true,
       page = 0,
       pageSize = 10,
       filters = null,
       sort = null,
-      requestOptions = null
     } = options || {};
 
     try {

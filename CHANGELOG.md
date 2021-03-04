@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 
+## [1.3.1] - 2021-03-04
+
+### Fixed
+* Crud Action search request options is now a param
+
 ## [1.3.0] - 2021-03-03
 
 ### Added
