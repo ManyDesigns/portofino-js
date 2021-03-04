@@ -84,17 +84,19 @@ export class LoginAction extends Action {
     }
   }
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string): Promise<UserInfo> {
     const loginParams = qs.stringify({ username, password });
 
     try {
-      const { data: login } = await this.http.post('', loginParams, {
+      const { data: user } = await this.http.post('', loginParams, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
-      this._jwt = "Bearer " + login.jwt;
+      this._jwt = "Bearer " + user.jwt;
       localStorage.setItem(JWT_KEY, this._jwt);
-      this.emitAuthStateChange(login);
+      this.emitAuthStateChange(user);
       // console.log('[Portofino] User logged in successfully', this._jwt);
+
+      return user;
     } catch (e) {
       throw e;
     }
