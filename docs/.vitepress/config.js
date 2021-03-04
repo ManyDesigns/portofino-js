@@ -2,6 +2,7 @@ module.exports = {
   title: 'Portofino JS',
   description: 'Portofino javascript API',
   lang: 'it-IT',
+  base: '/portofino-js/',
 
   themeConfig: {
     nav: [
