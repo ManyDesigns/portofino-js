@@ -14,8 +14,12 @@
  * // -> 'first/second'
  * ```
  */
-export function joinPath(part1: string, part2: string): string {
+export function joinPath(part1: string, part2?: string): string {
   const separator = '/';
+
+  if (!part2)
+    return part1;
+
   const p1 = part1.endsWith(separator)
     ? part1.slice(0, -separator.length)
     : part1;
