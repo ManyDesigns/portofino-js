@@ -25,7 +25,7 @@ jobs:
         run: yarn install --frozen-lockfile --non-interactive
 
       - name: Build project
-        run: yarn run docs:build --silent --non-interactive
+        run: yarn run build --silent --non-interactive
 
       - uses: JS-DevTools/npm-publish@v1
         with:
