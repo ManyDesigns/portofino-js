@@ -39,7 +39,7 @@ export class LoginAction extends Action {
   }
 
   async doPasswordReset(resetToken: String, newPassword: String) {
-    return await this.http.post(':reset-password', { resetToken, newPassword });
+    return await this.http.post(':reset-password', { token: resetToken, newPassword });
   }
 
   //Auth state
