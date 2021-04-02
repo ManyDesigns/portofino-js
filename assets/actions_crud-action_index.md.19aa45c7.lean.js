@@ -1,1 +1,0 @@
-import{o as e,c as i,a as t}from"./app.24d824db.js";const a='{"title":"CrudAction","description":"","frontmatter":{},"relativePath":"actions/crud-action/index.md","lastUpdated":1615471535688}',o={},r=t('',3);o.render=function(t,a,o,n,s,c){return e(),i("div",null,[r])};export default o;export{a as __pageData};
