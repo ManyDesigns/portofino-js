@@ -30,6 +30,10 @@ async function getKittens() {
 }
 ```
 
+::: warning
+Per disattivare la paginazione assicurati che nel `configuration.xml` non sia presente l'opzione `rowsPerPage`
+:::
+
 ### Ordinamento
 Il parametro `sort` ci consente di impostare il parametro e la direzione di ordinamento delle entità ritornate dalla search, il parametro deve contenere un oggetto con due attributi:
 * **property**: Una stringa rappresentante il nome della proprietà che vogliamo ordinare.
