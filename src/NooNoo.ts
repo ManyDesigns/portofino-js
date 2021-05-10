@@ -37,7 +37,7 @@ export default class NooNoo {
     return new NooNoo(url.toString());
   }
 
-  private getRequestUrl(url?: string): string {
+  private getRequestUrl(url?: string | number): string {
     return joinPath(this._baseURL, url)
   }
 
