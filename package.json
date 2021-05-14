@@ -22,7 +22,7 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
-    "axios": "^0.19",
+    "axios": "^0.21",
     "date-fns": "^2.20",
     "qs": "^6.9"
   },
