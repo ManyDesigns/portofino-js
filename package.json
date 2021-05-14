@@ -17,9 +17,9 @@
     "build": "tsc",
     "build:watch": "npm run build -- -w",
     "test": "jest",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:serve": "vuepress serve docs"
   },
   "dependencies": {
     "axios": "^0.21",
