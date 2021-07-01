@@ -1,8 +1,9 @@
 # Metodi di utilità
 
 ## Attributi
-``` TypeScript
-interface PortofinoEntityProperty {
+
+```TypeScript
+interface EntityProperty {
   name: string;
   label: string;
   type: Type;
@@ -15,31 +16,31 @@ interface PortofinoEntityProperty {
 }
 ```
 
-``` JavaScript
-getAttributes(): PortofinoEntityProperty[] {
+```JavaScript
+getAttributes(): EntityProperty[] {
   return this._properties;
 }
 
-getAttribute(name: string): PortofinoEntityProperty {
+getAttribute(name: string): EntityProperty {
   return this._properties.find(p => p.name === name);
 }
 
-getSummaryAttributes(): PortofinoEntityProperty[] {
+getSummaryAttributes(): EntityProperty[] {
   return this.getAttributes().filter(a => a.inSummary);
 }
 
-getInsertableAttributes(): PortofinoEntityProperty[] {
+getInsertableAttributes(): EntityProperty[] {
   return this.getAttributes().filter(a => a.insertable);
 }
 
-getUpdatableAttributes(): PortofinoEntityProperty[] {
+getUpdatableAttributes(): EntityProperty[] {
   return this.getAttributes().filter(a => a.updatable);
 }
 ```
 
 ## Selection provider
 
-``` TypeScript
+```TypeScript
 interface PortofinoSelectionProvider {
     searchDisplayMode: string;
     fieldNames: string[];
@@ -50,7 +51,7 @@ interface PortofinoSelectionProvider {
 async getOptions();
 ```
 
-``` Javascript
+```Javascript
 getSelectionProviders(): PortofinoSelectionProvider[] {
   return this._selectionProviders;
 }

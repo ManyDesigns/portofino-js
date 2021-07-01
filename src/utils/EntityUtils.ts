@@ -1,30 +1,34 @@
-import Type from "../entity/TypeEnum";
+import { PropertyType } from "../types/EntityTypes";
 
-export function getTypeFromJavaType(type: string): Type {
+export function getTypeFromJavaType(type: string): PropertyType {
   switch (type) {
-    case 'java.lang.String':
-      return Type.String;
-    case 'java.lang.Long':
-    case 'java.math.BigDecimal':
-      return Type.Number;
-    case 'java.lang.Boolean':
-      return Type.Boolean;
-    case 'java.sql.Date':
-    case 'java.sql.Timestamp':
-    case 'java.sql.Time':
-    case 'java.util.Date':
-      return Type.Date;
+    case "java.lang.String":
+      return "string";
+    case "java.lang.Long":
+    case "java.math.BigDecimal":
+      return "number";
+    case "java.lang.Boolean":
+      return "boolean";
+    case "java.sql.Date":
+    case "java.sql.Timestamp":
+    case "java.sql.Time":
+    case "java.util.Date":
+      return "date";
     default:
-      console.warn("[Portofino] Unknown attribute type", type, 'fallback to string');
-      return Type.String;
+      console.warn(
+        "[Portofino] Unknown attribute type",
+        type,
+        "fallback to string"
+      );
+      return "string";
   }
 }
 
-export function convertValueToJSType(type: Type, value: any): any {
+export function convertValueToJSType(type: PropertyType, value: any): any {
   switch (type) {
-    case Type.Date:
+    case "date":
       return value ? new Date(value) : null;
-    case Type.String:
+    case "string":
       try {
         return JSON.parse(value);
       } catch (e) {
@@ -36,30 +40,27 @@ export function convertValueToJSType(type: Type, value: any): any {
 }
 
 function anyDateToTimestamp(value: any) {
-  if (!value && value !== 0)
-    return null;
+  if (!value && value !== 0) return null;
 
   let date = value;
 
-  if (value._isAMomentObject)
-    date = value.toDate();
+  if (value._isAMomentObject) date = value.toDate();
 
-  if (!isNaN(date))
-    date = new Date(date);
+  if (!isNaN(date)) date = new Date(date);
 
-  if (typeof value === 'string' || value instanceof String)
+  if (typeof value === "string" || value instanceof String)
     date = new Date(value.toString());
 
   return date.getTime();
 }
 
-export function convertJSTypeToValue(type: Type, value: any): any {
+export function convertJSTypeToValue(type: PropertyType, value: any): any {
   switch (type) {
-    case Type.Date:
+    case "date":
       return anyDateToTimestamp(value);
 
-    case Type.String:
-      if (typeof value === 'object' && value !== null)
+    case "string":
+      if (typeof value === "object" && value !== null)
         return JSON.stringify(value);
       return value;
 
