@@ -1,22 +1,23 @@
-import {PortofinoEntityProperty} from "../actions/CrudAction";
-import {convertJSTypeToValue, getTypeFromJavaType} from "./EntityUtils";
-import Type from "../entity/TypeEnum";
+import { convertJSTypeToValue, getTypeFromJavaType } from "./EntityUtils";
+import { EntityProperty } from "../types/EntityTypes";
 
 const annotationTypes: { [key: string]: string } = {
-  'com.manydesigns.elements.annotations.InSummary': 'inSummary',
-  'com.manydesigns.elements.annotations.Searchable': 'searchable',
-  'com.manydesigns.elements.annotations.Insertable': 'insertable',
-  'com.manydesigns.elements.annotations.Updatable': 'updatable',
-  'com.manydesigns.elements.annotations.Enabled': 'enabled',
-  'com.manydesigns.elements.annotations.Required': 'required',
-}
+  "com.manydesigns.elements.annotations.InSummary": "inSummary",
+  "com.manydesigns.elements.annotations.Searchable": "searchable",
+  "com.manydesigns.elements.annotations.Insertable": "insertable",
+  "com.manydesigns.elements.annotations.Updatable": "updatable",
+  "com.manydesigns.elements.annotations.Enabled": "enabled",
+  "com.manydesigns.elements.annotations.Required": "required",
+};
 
-export function mapClassAccessorToPropertiesDefinition(classAccessor: any): PortofinoEntityProperty[] {
+export function mapClassAccessorToPropertiesDefinition(
+  classAccessor: any
+): EntityProperty[] {
   return classAccessor.properties.map((prop: any) => {
     const property: any = {
       name: prop.name,
       label: prop.label,
-      type: getTypeFromJavaType(prop.type)
+      type: getTypeFromJavaType(prop.type),
     };
 
     prop.annotations.forEach((annotation: any) => {
@@ -28,32 +29,33 @@ export function mapClassAccessorToPropertiesDefinition(classAccessor: any): Port
     });
 
     return property;
-  })
+  });
 }
 
-export function makeSortObj(sortProperty: { direction: string, property: string }) {
+export function makeSortObj(sortProperty: {
+  direction: string;
+  property: string;
+}) {
   if (!sortProperty) return {};
   return {
     sortDirection: sortProperty.direction,
     sortProperty: sortProperty.property,
-  }
+  };
 }
 
-export function makeSearchObj(filters: object, properties: PortofinoEntityProperty[]) {
+export function makeSearchObj(filters: object, properties: EntityProperty[]) {
   const searchObj: any = {};
 
-  if (!filters) return {}
+  if (!filters) return {};
 
   //TODO basare la generazione dell props su tipo attr
   Object.entries(filters).forEach(([key, value]) => {
     //TODO User property to determinate the Type
     if (value) {
-      if (typeof value === 'object') {
-
+      if (typeof value === "object") {
         if (Array.isArray(value)) {
           searchObj[`search_${key}`] = value;
         } else {
-
           //Stringa
           /*
           &search_luogo_mode=
@@ -62,11 +64,16 @@ export function makeSearchObj(filters: object, properties: PortofinoEntityProper
 
           //Numero, data
           if (value.min)
-            searchObj[`search_${key}_min`] = convertJSTypeToValue(Type.Date, value.min);
+            searchObj[`search_${key}_min`] = convertJSTypeToValue(
+              "date",
+              value.min
+            );
           if (value.max)
-            searchObj[`search_${key}_max`] = convertJSTypeToValue(Type.Date, value.max);
+            searchObj[`search_${key}_max`] = convertJSTypeToValue(
+              "date",
+              value.max
+            );
         }
-
       } else {
         searchObj[`search_${key}`] = value;
       }
