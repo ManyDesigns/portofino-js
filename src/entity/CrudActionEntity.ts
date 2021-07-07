@@ -2,22 +2,22 @@ import {
   convertJSTypeToValue,
   convertValueToJSType,
 } from "../utils/EntityUtils";
-import NooNoo from "../NooNoo";
 import { AxiosRequestConfig } from "axios";
-import { EntityProperty } from "../types/EntityTypes";
+import { CrudAction } from "../actions/internal";
 
 export default class CrudActionEntity {
   public readonly _isPortofinoEntity = true;
   public readonly key: string;
-  private readonly _entityData: object;
+  readonly #action: CrudAction
+  readonly #entityData: object;
 
   constructor(
-    private _nooNoo: NooNoo,
+    action: CrudAction,
     entity: any,
-    private _properties: EntityProperty[]
   ) {
     this.key = entity.__rowKey || entity.id?.value;
-    this._entityData = entity;
+    this.#action = action;
+    this.#entityData = entity;
     Object.keys(entity)
       .filter((attr) => attr !== "__rowKey")
       .forEach((attr) => {
@@ -31,12 +31,12 @@ export default class CrudActionEntity {
       });
   }
 
-  private getProperty(propName) {
-    return this._entityData[propName];
+  private getProperty(propName: string) {
+    return this.#entityData[propName];
   }
 
   getValue(propName: string): any {
-    const propDef = this._properties.find((p) => p.name == propName);
+    const propDef = this.#action.properties.find((p) => p.name == propName);
     const prop = this.getProperty(propName);
     if (prop) return convertValueToJSType(propDef.type, prop.value);
     return undefined;
@@ -52,7 +52,7 @@ export default class CrudActionEntity {
     const obj = {};
     obj["key"] = this.key;
     //todo vedere se deriva da un summary o da get
-    this._properties.forEach((p) => {
+    this.#action.properties.forEach((p) => {
       if (p.enabled) obj[p.name] = this.getValue(p.name);
     });
     return obj;
@@ -60,22 +60,24 @@ export default class CrudActionEntity {
 
   /** Rest operations **/
   async delete(requestOptions?: AxiosRequestConfig) {
-    await this._nooNoo.delete(this.key, requestOptions);
+    await this.#action.delete(this.key, requestOptions);
   }
 
   async update(data: object, requestOptions?: AxiosRequestConfig) {
+    //TODO
+    // return this.#action.update(this.key, data, requestOptions)
     const pData = { ...data };
 
-    this._properties.forEach((p) => {
+    this.#action.properties.forEach((p) => {
       if (data[p.name] !== undefined)
         pData[p.name] = convertJSTypeToValue(p.type, data[p.name]);
     });
 
-    const { data: entity } = await this._nooNoo.put(
+    const { data: entity } = await this.#action.http.put(
       this.key.toString(),
       pData,
       requestOptions
     );
-    return new CrudActionEntity(this._nooNoo, entity, this._properties);
+    return new CrudActionEntity(this.#action, entity);
   }
 }

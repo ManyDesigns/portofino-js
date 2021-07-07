@@ -1,5 +1,6 @@
 import { convertJSTypeToValue, getTypeFromJavaType } from "./EntityUtils";
 import { EntityProperty } from "../types/EntityTypes";
+import SelectionProvider from "../actions/crudAction/SelectionProvider";
 
 const annotationTypes: { [key: string]: string } = {
   "com.manydesigns.elements.annotations.InSummary": "inSummary",
@@ -30,6 +31,19 @@ export function mapClassAccessorToPropertiesDefinition(
 
     return property;
   });
+}
+
+export function mapSelectionProvider(selectionProvider: any[]) {
+  return selectionProvider.map(
+    (sp: any) =>
+      new SelectionProvider(
+        this.http,
+        sp.searchDisplayMode,
+        sp.fieldNames,
+        sp.name,
+        sp.displayMode
+      )
+  );
 }
 
 export function makeSortObj(sortProperty: {

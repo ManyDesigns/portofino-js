@@ -16,9 +16,7 @@ export function getTypeFromJavaType(type: string): PropertyType {
       return "date";
     default:
       console.warn(
-        "[Portofino] Unknown attribute type",
-        type,
-        "fallback to string"
+        `[Portofino] Unknown attribute type ${type} fallback to string`
       );
       return "string";
   }
