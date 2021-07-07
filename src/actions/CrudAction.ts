@@ -7,7 +7,6 @@ import {
   makeSearchObj,
   makeSortObj,
   mapClassAccessorToPropertiesDefinition,
-  mapSelectionProvider,
 } from "../utils/crudActionDataMapper";
 import NooNoo from "../NooNoo";
 import PortofinoSelectionProvider from "./crudAction/SelectionProvider";
@@ -43,7 +42,16 @@ export class CrudAction extends Action {
   ) {
     super(_nooNoo, action, crudActionClasses);
     this.#properties = mapClassAccessorToPropertiesDefinition(classAccessor);
-    this.#selectionProviders = mapSelectionProvider(selProviders);
+    this.#selectionProviders = selProviders.map(
+      (sp: any) =>
+        new SelectionProvider(
+          this.http,
+          sp.searchDisplayMode,
+          sp.fieldNames,
+          sp.name,
+          sp.displayMode
+        )
+    );
     this.config = {
       name: configuration.name,
       searchTitle: configuration.searchTitle,
