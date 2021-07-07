@@ -16,26 +16,16 @@ interface EntityProperty {
 }
 ```
 
-```JavaScript
-getAttributes(): EntityProperty[] {
-  return this._properties;
-}
+```TypeScript
+properties: EntityProperty[]
 
-getAttribute(name: string): EntityProperty {
-  return this._properties.find(p => p.name === name);
-}
+getProperties(name: string): EntityProperty
 
-getSummaryAttributes(): EntityProperty[] {
-  return this.getAttributes().filter(a => a.inSummary);
-}
+getSummaryProperties(): EntityProperty[]
 
-getInsertableAttributes(): EntityProperty[] {
-  return this.getAttributes().filter(a => a.insertable);
-}
+getInsertableProperties(): EntityProperty[]
 
-getUpdatableAttributes(): EntityProperty[] {
-  return this.getAttributes().filter(a => a.updatable);
-}
+getUpdatableProperties(): EntityProperty[]
 ```
 
 ## Selection provider
@@ -51,17 +41,10 @@ interface PortofinoSelectionProvider {
 async getOptions();
 ```
 
-```Javascript
-getSelectionProviders(): PortofinoSelectionProvider[] {
-  return this._selectionProviders;
-}
+```TypeScript
+selectionProviders: PortofinoSelectionProvider[]
 
-getSelectionProvider(name: string): PortofinoSelectionProvider {
-  return this.getSelectionProviders().find(sp => sp.name === name);
-}
+getSelectionProvider(name: string): PortofinoSelectionProvider
 
-getSelectionProviderDefinitionByFieldName(fieldName: string) {
-  return this.getSelectionProviders()
-    .find(sp => sp.fieldNames.includes(fieldName));
-}
+getSelectionProviderByPropertyName(fieldName: string): PortofinoSelectionProvider
 ```
