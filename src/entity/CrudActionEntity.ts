@@ -1,7 +1,4 @@
-import {
-  convertJSTypeToValue,
-  convertValueToJSType,
-} from "../utils/EntityUtils";
+import {convertValueToJSType} from "../utils/EntityUtils";
 import { AxiosRequestConfig } from "axios";
 import { CrudAction } from "../actions/internal";
 
@@ -64,20 +61,6 @@ export default class CrudActionEntity {
   }
 
   async update(data: object, requestOptions?: AxiosRequestConfig) {
-    //TODO
-    // return this.#action.update(this.key, data, requestOptions)
-    const pData = { ...data };
-
-    this.#action.properties.forEach((p) => {
-      if (data[p.name] !== undefined)
-        pData[p.name] = convertJSTypeToValue(p.type, data[p.name]);
-    });
-
-    const { data: entity } = await this.#action.http.put(
-      this.key.toString(),
-      pData,
-      requestOptions
-    );
-    return new CrudActionEntity(this.#action, entity);
+    return await this.#action.update(this.key, data, requestOptions)
   }
 }
