@@ -109,6 +109,10 @@ export class CrudAction extends Action {
     return this.properties.filter((a) => a.updatable);
   }
 
+  getSearchableProperties(): EntityProperty[] {
+    return this.properties.filter((a) => a.searchable);
+  }
+
   /**
    * @deprecated Use property getter
    */
