@@ -1,4 +1,5 @@
-const path = require('path');
+import path from 'path';
+import typescript from '@rollup/plugin-typescript';
 
 module.exports = {
   resolve: {
@@ -14,6 +15,9 @@ module.exports = {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'Portofino'
+    },
+    rollupOptions: {
+      plugins: [typescript()]
     }
   }
 };
