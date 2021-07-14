@@ -1,6 +1,6 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
@@ -8,15 +8,21 @@
     "api",
     "portofino"
   ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "./dist/portofino.umd.js",
+  "module": "./dist/portofino.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/portofino.es.js",
+      "require": "./dist/portofino.umd.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
-    "build:watch": "npm run build -- -w",
+    "build": "vite build",
+    "build:watch": "vite build --watch -m development",
+    "_build": "tsc",
+    "_build:watch": "npm run build -- -w",
     "test": "jest",
+    "test:ts": "tsc --noEmit",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "docs:serve": "vuepress serve docs"
@@ -24,11 +30,13 @@
   "dependencies": {
     "axios": "^0.21",
     "date-fns": "^2.20",
-    "qs": "^6.9"
+    "qs": "^6.9",
+    "vite": "^2.4.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "jest": "^26.6.3",
+    "prettier": "^2.3.2",
     "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
