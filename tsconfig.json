@@ -1,23 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "esnext",
     "declaration": true,
     "removeComments": true,
     "allowJs": false,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "lib": [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015.promise"
-    ]
+    "lib": ["dom", "es5", "scripthost", "es2015.promise"]
   },
   "include": ["src"],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }
