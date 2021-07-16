@@ -1,19 +1,18 @@
-import { Action } from "./internal";
-import { AxiosRequestConfig } from "axios";
-import { EntityProperty } from "../types/EntityTypes";
-import { SearchOptions } from "../types/CrudActionTypes";
-import CrudActionEntity from "../entity/CrudActionEntity";
+import { Action } from './internal';
+import { AxiosRequestConfig } from 'axios';
+import * as qs from 'qs';
+import { EntityProperty } from '../types/EntityTypes';
+import { SearchOptions } from '../types/CrudActionTypes';
+import CrudActionEntity from '../entity/CrudActionEntity';
 import {
   makeSearchObj,
   makeSortObj,
   mapClassAccessorToPropertiesDefinition,
-} from "../utils/crudActionDataMapper";
-import NooNoo from "../NooNoo";
-import PortofinoSelectionProvider from "./crudAction/SelectionProvider";
-import SelectionProvider from "./crudAction/SelectionProvider";
-import { convertJSTypeToValue } from "../utils/EntityUtils";
-
-const qs = require("qs");
+} from '../utils/crudActionDataMapper';
+import NooNoo from '../NooNoo';
+import PortofinoSelectionProvider from './crudAction/SelectionProvider';
+import SelectionProvider from './crudAction/SelectionProvider';
+import { convertJSTypeToValue } from '../utils/EntityUtils';
 
 interface PortofinoCrudConfig {
   name: string;
@@ -105,7 +104,7 @@ export class CrudAction extends Action {
     return this.properties.filter((a) => a.insertable);
   }
 
-   getUpdatableProperties(): EntityProperty[] {
+  getUpdatableProperties(): EntityProperty[] {
     return this.properties.filter((a) => a.updatable);
   }
 
@@ -164,7 +163,9 @@ export class CrudAction extends Action {
     return this.selectionProviders.find((sp) => sp.name === name);
   }
 
-  getSelectionProviderByPropertyName(fieldName: string): PortofinoSelectionProvider {
+  getSelectionProviderByPropertyName(
+    fieldName: string
+  ): PortofinoSelectionProvider {
     return this.selectionProviders.find((sp) =>
       sp.fieldNames.includes(fieldName)
     );
@@ -183,7 +184,7 @@ export class CrudAction extends Action {
     try {
       // https://portofino.manydesigns.com/en/docs/reference/page-types/crud/rest
       //   ?sortDirection=&searchString=&sortProperty=&maxResults=10&firstResult=10
-      const { data } = await this.http.get("", {
+      const { data } = await this.http.get('', {
         paramsSerializer: (params) => qs.stringify(params, { indices: false }),
         ...requestOptions,
         params: {
@@ -195,11 +196,9 @@ export class CrudAction extends Action {
       });
 
       this.totalRecords = data.totalRecords;
-      return data.records.map(
-        (record) => new CrudActionEntity(this, record)
-      );
+      return data.records.map((record) => new CrudActionEntity(this, record));
     } catch (e) {
-      console.error("[Portofino] Unable to fetch data");
+      console.error('[Portofino] Unable to fetch data');
       throw e;
     }
   }
@@ -207,9 +206,7 @@ export class CrudAction extends Action {
   async get(id: string, requestOptions?: AxiosRequestConfig) {
     return await this.http
       .get(`${id}`, requestOptions)
-      .then(
-        ({ data }) => new CrudActionEntity(this, data)
-      );
+      .then(({ data }) => new CrudActionEntity(this, data));
   }
 
   async create(data: any, requestOptions?: AxiosRequestConfig) {
@@ -221,10 +218,8 @@ export class CrudAction extends Action {
     });
 
     return await this.http
-      .post("", payload, requestOptions)
-      .then(
-        ({ data }) => new CrudActionEntity(this, data)
-      );
+      .post('', payload, requestOptions)
+      .then(({ data }) => new CrudActionEntity(this, data));
   }
 
   async update(id: string, data: any, requestOptions?: AxiosRequestConfig) {
