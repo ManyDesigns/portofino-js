@@ -1,6 +1,6 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
@@ -10,6 +10,7 @@
   ],
   "main": "./dist/portofino.umd.js",
   "module": "./dist/portofino.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/portofino.es.js",
@@ -19,8 +20,6 @@
   "scripts": {
     "build": "vite build",
     "build:watch": "vite build --watch -m development",
-    "_build": "tsc",
-    "_build:watch": "npm run build -- -w",
     "test": "jest",
     "test:ts": "tsc --noEmit",
     "docs:dev": "vuepress dev docs",
