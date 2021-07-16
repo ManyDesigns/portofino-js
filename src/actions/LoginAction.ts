@@ -1,7 +1,6 @@
-import { Action } from "./Action";
-import NooNoo from "../NooNoo";
-
-const qs = require('qs');
+import { Action } from './internal';
+import * as qs from 'qs';
+import NooNoo from '../NooNoo';
 
 const JWT_KEY = 'portofino_jwt';
 
@@ -25,7 +24,11 @@ export class LoginAction extends Action {
   private stateChangeObserver: StateChangeObserverList[] = [];
   private stateChangeSequence = 0;
 
-  constructor(_nooNoo: NooNoo, public action: string, crudActionClasses: string[]) {
+  constructor(
+    _nooNoo: NooNoo,
+    public action: string,
+    crudActionClasses: string[]
+  ) {
     super(_nooNoo, action, crudActionClasses);
     this._jwt = localStorage.getItem(JWT_KEY);
   }
@@ -39,7 +42,10 @@ export class LoginAction extends Action {
   }
 
   async doPasswordReset(resetToken: String, newPassword: String) {
-    return await this.http.post(':reset-password', { token: resetToken, newPassword });
+    return await this.http.post(':reset-password', {
+      token: resetToken,
+      newPassword,
+    });
   }
 
   //Auth state
@@ -47,20 +53,22 @@ export class LoginAction extends Action {
     return !!this._jwt;
   }
 
-  onAuthStateChanged(nextOrObserver: (a: UserInfo | null) => any): (() => any) {
+  onAuthStateChanged(nextOrObserver: (a: UserInfo | null) => any): () => any {
     const observerId = this.stateChangeSequence++;
     this.stateChangeObserver.push({
       id: observerId,
-      callback: nextOrObserver
+      callback: nextOrObserver,
     });
 
     return () => {
-      this.stateChangeObserver = this.stateChangeObserver.filter(el => el.id !== observerId);
-    }
+      this.stateChangeObserver = this.stateChangeObserver.filter(
+        (el) => el.id !== observerId
+      );
+    };
   }
 
   private emitAuthStateChange(user: UserInfo) {
-    this.stateChangeObserver.forEach(({callback}) => callback(user));
+    this.stateChangeObserver.forEach(({ callback }) => callback(user));
   }
 
   //Autentication
@@ -89,9 +97,9 @@ export class LoginAction extends Action {
 
     try {
       const { data: user } = await this.http.post('', loginParams, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       });
-      this._jwt = "Bearer " + user.jwt;
+      this._jwt = `Bearer ${user.jwt}`;
       localStorage.setItem(JWT_KEY, this._jwt);
       this.emitAuthStateChange(user);
       // console.log('[Portofino] User logged in successfully', this._jwt);

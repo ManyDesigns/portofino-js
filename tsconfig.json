@@ -2,13 +2,16 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "esnext",
-    "declaration": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
     "removeComments": true,
     "allowJs": false,
+    "declaration": true,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "lib": ["dom", "es5", "scripthost", "es2015.promise"]
+    "types": ["vite/client"],
+    "lib": ["dom", "ES2017", "scripthost", "es2015.promise"]
   },
   "include": ["src"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
