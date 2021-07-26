@@ -2,7 +2,7 @@ import { Action } from './internal';
 import { AxiosRequestConfig } from 'axios';
 import * as qs from 'qs';
 import { EntityProperty } from '../types/EntityTypes';
-import { SearchOptions } from '../types/CrudActionTypes';
+import { ExportOptions, SearchOptions } from '../types/CrudActionTypes';
 import CrudActionEntity from '../entity/CrudActionEntity';
 import {
   makeSearchObj,
@@ -13,6 +13,7 @@ import NooNoo from '../NooNoo';
 import PortofinoSelectionProvider from './crudAction/SelectionProvider';
 import SelectionProvider from './crudAction/SelectionProvider';
 import { convertJSTypeToValue } from '../utils/EntityUtils';
+import exportXlsx from '../modules/exportXlsx';
 
 interface PortofinoCrudConfig {
   name: string;
@@ -240,5 +241,21 @@ export class CrudAction extends Action {
 
   async delete(id: string, requestOptions?: AxiosRequestConfig) {
     await this.http.delete(id.toString(), requestOptions);
+  }
+
+  async export(options: ExportOptions, requestOptions?: AxiosRequestConfig) {
+    const opts: SearchOptions = {
+      pagination: true,
+      page: 0,
+      pageSize: this.totalRecords * 2,
+      ...options,
+    };
+    const entities = await this.search(opts, requestOptions);
+    exportXlsx(
+      options,
+      this.getSummaryProperties(),
+      entities,
+      options.omitProps
+    );
   }
 }

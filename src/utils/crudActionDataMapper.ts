@@ -61,6 +61,10 @@ export function makeSearchObj(filters: object, properties: EntityProperty[]) {
           &search_luogo_mode=
           &search_luogo=
           */
+         if (value.mode) {
+          searchObj[`search_${key}_mode`] = value.mode;
+          searchObj[`search_${key}`] = value.value;
+         }
 
           //Numero, data
           if (value.min)
