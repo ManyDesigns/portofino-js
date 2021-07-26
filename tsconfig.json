@@ -10,7 +10,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["vite/client"],
+    "types": ["node", "vite/client"],
     "lib": ["dom", "ES2017", "scripthost", "es2015.promise"]
   },
   "include": ["src"],

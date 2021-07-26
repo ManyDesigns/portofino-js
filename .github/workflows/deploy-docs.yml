@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
     paths:
-      - "docs/**"
+      - 'docs/**'
 
 jobs:
   build-deploy:
@@ -21,15 +21,15 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: yarn install --frozen-lockfile
 
       - name: Build project
-        run: yarn run docs:build --silent --non-interactive
+        run: yarn run docs:build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
