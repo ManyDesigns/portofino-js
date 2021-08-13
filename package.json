@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^27.0.1",
     "@types/qs": "^6.9.7",
     "jest": "^26.6.3",
     "prettier": "^2.3.2",
