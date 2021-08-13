@@ -1,10 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    target-branch: "develop"
-    directory: "."
+  - package-ecosystem: 'npm'
+    target-branch: 'develop'
+    directory: '.'
     schedule:
-      interval: "daily"
-      time: "09:00"
-    assignees:
-      - "mitto98"
+      interval: 'weekly'
+    allow:
+      - dependency-type: 'development'

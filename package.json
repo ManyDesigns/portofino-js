@@ -1,6 +1,6 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
@@ -43,5 +43,13 @@
     "typescript": "^4.3.5",
     "vite": "^2.4.2",
     "vuepress": "^1.8.2"
+  },
+  "peerDependencies": {
+    "xlsx": "^0.17.0"
+  },
+  "peerDependenciesMeta": {
+    "xlsx": {
+      "optional": true
+    }
   }
 }

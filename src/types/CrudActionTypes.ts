@@ -15,7 +15,7 @@ export type FilterOptions =
   | number;
 
 export interface SortOptions {
-  direction: 'ASC' | 'DESC';
+  direction: 'asc' | 'desc';
   property: string;
 }
 

@@ -36,9 +36,8 @@ interface PortofinoSelectionProvider {
     fieldNames: string[];
     name: string;
     displayMode: string;
+    getOptions: () => Promise<SelectionProviderOption[]>
 }
-
-async getOptions();
 ```
 
 ```TypeScript

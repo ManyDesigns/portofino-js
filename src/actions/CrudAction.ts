@@ -46,10 +46,10 @@ export class CrudAction extends Action {
       (sp: any) =>
         new SelectionProvider(
           this.http,
-          sp.searchDisplayMode,
-          sp.fieldNames,
           sp.name,
-          sp.displayMode
+          sp.fieldNames,
+          sp.displayMode,
+          sp.searchDisplayMode
         )
     );
     this.config = {
