@@ -1,13 +1,13 @@
-import { convertJSTypeToValue, getTypeFromJavaType } from "./EntityUtils";
-import { EntityProperty } from "../types/EntityTypes";
+import { convertJSTypeToValue, getTypeFromJavaType } from './EntityUtils';
+import { EntityProperty } from '../types/EntityTypes';
 
 const annotationTypes: { [key: string]: string } = {
-  "com.manydesigns.elements.annotations.InSummary": "inSummary",
-  "com.manydesigns.elements.annotations.Searchable": "searchable",
-  "com.manydesigns.elements.annotations.Insertable": "insertable",
-  "com.manydesigns.elements.annotations.Updatable": "updatable",
-  "com.manydesigns.elements.annotations.Enabled": "enabled",
-  "com.manydesigns.elements.annotations.Required": "required",
+  'com.manydesigns.elements.annotations.InSummary': 'inSummary',
+  'com.manydesigns.elements.annotations.Searchable': 'searchable',
+  'com.manydesigns.elements.annotations.Insertable': 'insertable',
+  'com.manydesigns.elements.annotations.Updatable': 'updatable',
+  'com.manydesigns.elements.annotations.Enabled': 'enabled',
+  'com.manydesigns.elements.annotations.Required': 'required',
 };
 
 export function mapClassAccessorToPropertiesDefinition(
@@ -48,40 +48,34 @@ export function makeSearchObj(filters: object, properties: EntityProperty[]) {
 
   if (!filters) return {};
 
-  //TODO basare la generazione dell props su tipo attr
   Object.entries(filters).forEach(([key, value]) => {
-    //TODO User property to determinate the Type
-    if (value) {
-      if (typeof value === "object") {
-        if (Array.isArray(value)) {
-          searchObj[`search_${key}`] = value;
-        } else {
-          //Stringa
-          /*
-          &search_luogo_mode=
-          &search_luogo=
-          */
-         if (value.mode) {
-          searchObj[`search_${key}_mode`] = value.mode;
-          searchObj[`search_${key}`] = value.value;
-         }
+    if (!value) return;
 
-          //Numero, data
-          if (value.min)
-            searchObj[`search_${key}_min`] = convertJSTypeToValue(
-              "date",
-              value.min
-            );
-          if (value.max)
-            searchObj[`search_${key}_max`] = convertJSTypeToValue(
-              "date",
-              value.max
-            );
-        }
-      } else {
-        searchObj[`search_${key}`] = value;
-      }
+    if (typeof value !== 'object') {
+      searchObj[`search_${key}`] = value;
+      return;
     }
+
+    if (Array.isArray(value)) {
+      searchObj[`search_${key}`] = value;
+      return;
+    }
+
+    if (value.mode) {
+      searchObj[`search_${key}_mode`] = value.mode;
+      searchObj[`search_${key}`] = value.value;
+      return;
+    }
+
+    //TODO: Funziona con le date, ma non con i numeri (da questo punto basarsi su pros?)
+    if (value.min)
+      searchObj[`search_${key}_min`] = convertJSTypeToValue('date', value.min);
+
+    if (value.max)
+      searchObj[`search_${key}_max`] = convertJSTypeToValue('date', value.max);
+
+    if (value.value !== undefined) searchObj[`search_${key}`] = value.value;
   });
+
   return searchObj;
 }
