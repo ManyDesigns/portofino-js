@@ -1,6 +1,6 @@
 {
   "name": "@manydesigns/portofino",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "A wrapper for portofino API endpoints",
   "author": "Manydesigns",
   "license": "MIT",
