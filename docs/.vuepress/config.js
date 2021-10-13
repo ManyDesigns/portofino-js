@@ -9,10 +9,15 @@ module.exports = {
       { text: 'Guide', link: '/', activeMatch: '^/$|^/guide/' },
       {
         text: 'Changelogs',
-        link: 'https://github.com/manydesigns/portofino-js/releases'
-      }, {
+        link: 'https://github.com/manydesigns/portofino-js/releases',
+      },
+      {
         text: 'GitHub',
-        link: 'https://github.com/manydesigns/portofino-js'
+        link: 'https://github.com/manydesigns/portofino-js',
+      },
+      {
+        text: 'NPM',
+        link: 'https://www.npmjs.com/package/@manydesigns/portofino',
       },
     ],
 
@@ -24,7 +29,7 @@ module.exports = {
             { title: 'Perchè usare PortofinoJS?', path: '/' },
             { title: 'Getting Started', path: '/getting-started' },
             { title: 'Configurazione', path: '/config' },
-          ]
+          ],
         },
         {
           title: 'Actions',
@@ -37,12 +42,12 @@ module.exports = {
                 { title: 'Operazioni CRUD', path: '/actions/crud-action/crud' },
                 // { title: 'Entità CRUD', path: '/actions/crud-action/entities' },
                 // { title: 'Metodi di utilità', path: '/actions/crud-action/crud-utilities' },
-              ]
+              ],
             },
             { title: 'Login Actions', path: '/actions/login-action' },
-          ]
+          ],
         },
-      ]
-    }
-  }
-}
+      ],
+    },
+  },
+};
