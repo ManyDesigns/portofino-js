@@ -2,7 +2,7 @@ import { Action } from './internal';
 import { AxiosRequestConfig } from 'axios';
 import * as qs from 'qs';
 import { EntityProperty } from '../types/EntityTypes';
-import { ExportOptions, SearchOptions } from '../types/CrudActionTypes';
+import { SearchOptions } from '../types/CrudActionTypes';
 import CrudActionEntity from '../entity/CrudActionEntity';
 import {
   makeSearchObj,
@@ -172,7 +172,10 @@ export class CrudAction extends Action {
   }
 
   /** Entity methods **/
-  async search(options?: SearchOptions, requestOptions?: AxiosRequestConfig) {
+  async search(
+    options?: Partial<SearchOptions>,
+    requestOptions?: AxiosRequestConfig
+  ) {
     const {
       pagination = true,
       page = 0,

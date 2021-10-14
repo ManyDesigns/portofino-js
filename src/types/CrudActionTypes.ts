@@ -4,8 +4,8 @@ export interface StringModeFilterOption {
 }
 
 export interface MinMaxFilterOption {
-  min: string | number;
-  max?: string | number;
+  min?: string | number | Date;
+  max?: string | number | Date;
 }
 
 export type FilterOptions =
