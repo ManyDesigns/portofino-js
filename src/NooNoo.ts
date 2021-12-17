@@ -3,22 +3,22 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { joinPath } from './lib/utils';
 
 export default class NooNoo {
-  private static _instance: AxiosInstance;
+  static #instance: AxiosInstance;
 
   private constructor(private readonly _baseURL: string) {}
 
   static create(baseURL: string, instance?: AxiosInstance | undefined): NooNoo {
     if (!instance) instance = axios.create();
 
-    NooNoo._instance = instance;
+    NooNoo.#instance = instance;
 
-    NooNoo._instance.interceptors.request.use((config) => {
+    NooNoo.#instance.interceptors.request.use((config) => {
       const jwt = localStorage.getItem('portofino_jwt');
       if (jwt) config.headers.Authorization = jwt;
       return config;
     });
 
-    NooNoo._instance.interceptors.response.use(
+    NooNoo.#instance.interceptors.response.use(
       (response) => response,
       (error) => {
         const { response } = error;
@@ -46,7 +46,7 @@ export default class NooNoo {
     url?: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return NooNoo._instance.get(this.getRequestUrl(url), config);
+    return NooNoo.#instance.get(this.getRequestUrl(url), config);
   }
 
   public post<T = any, R = AxiosResponse<T>>(
@@ -54,7 +54,7 @@ export default class NooNoo {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return NooNoo._instance.post(this.getRequestUrl(url), data, config);
+    return NooNoo.#instance.post(this.getRequestUrl(url), data, config);
   }
 
   public put<T = any, R = AxiosResponse<T>>(
@@ -62,13 +62,13 @@ export default class NooNoo {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return NooNoo._instance.put(this.getRequestUrl(url), data, config);
+    return NooNoo.#instance.put(this.getRequestUrl(url), data, config);
   }
 
   public delete<T = any, R = AxiosResponse<T>>(
     url?: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return NooNoo._instance.delete(this.getRequestUrl(url), config);
+    return NooNoo.#instance.delete(this.getRequestUrl(url), config);
   }
 }

@@ -1,24 +1,41 @@
 import { Action, RootAction, LoginAction } from './actions';
-import { AxiosInstance } from 'axios';
+import PortofinoConfig from './types/PortofinoConfig';
 import NooNoo from './NooNoo';
 
-export interface PortofinoConfig {
-  url?: string;
-  axiosInstance?: AxiosInstance;
+class PortofinoInstance {
+  #rootAction: RootAction;
+  #auth: LoginAction;
 
-  enableAuth?: boolean;
-  authAction?: string;
+  constructor(rootAction: RootAction, auth: LoginAction) {
+    this.#rootAction = rootAction;
+    this.#auth = auth;
+  }
 
-  crudActionClasses?: string[];
+  getAction(name: string): Promise<Action> {
+    return this.#rootAction.getAction(name);
+  }
+
+  get http(): NooNoo {
+    return this.#rootAction.http;
+  }
+
+  get auth(): LoginAction {
+    return this.#auth;
+  }
 }
 
 export default class Portofino {
-  private static rootAction: RootAction;
-  public static auth: LoginAction;
+  static #instance: PortofinoInstance;
 
   private constructor() {}
 
-  static connect({
+  static connect(config: PortofinoConfig) {
+    if (Portofino.#instance)
+      throw new Error('PortofinoJS is already connected!');
+    Portofino.#instance = Portofino.createInstance(config);
+  }
+
+  static createInstance({
     url = '/api',
     axiosInstance,
     enableAuth = true,
@@ -30,27 +47,31 @@ export default class Portofino {
     if (baseURL) console.debug('[Portofino] Connecting to ', baseURL);
     else console.debug('[Portofino] Connecting via axios instance');
 
-    if (Portofino.rootAction)
-      throw new Error('PortofinoJS is already connected!');
-
     const noo = NooNoo.create(baseURL, axiosInstance);
-    this.rootAction = new RootAction(noo, crudActionClasses);
+    const rootAction = new RootAction(noo, crudActionClasses);
 
-    if (enableAuth)
-      this.auth = new LoginAction(noo, authAction, crudActionClasses);
+    let auth: LoginAction;
+    if (enableAuth) auth = new LoginAction(noo, authAction, crudActionClasses);
+
+    return new PortofinoInstance(rootAction, auth);
   }
 
   private static checkConnection() {
-    if (!Portofino.rootAction) throw new Error('PortofinoJS is not connected!');
+    if (!Portofino.#instance) throw new Error('PortofinoJS is not connected!');
   }
 
   static getAction(name: string): Promise<Action> {
     Portofino.checkConnection();
-    return this.rootAction.getAction(name);
+    return this.#instance.getAction(name);
   }
 
   static get http(): NooNoo {
     Portofino.checkConnection();
-    return this.rootAction.http;
+    return this.#instance.http;
+  }
+
+  static get auth(): LoginAction {
+    Portofino.checkConnection();
+    return this.#instance.auth;
   }
 }
