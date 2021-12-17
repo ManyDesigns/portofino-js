@@ -2,7 +2,7 @@
 
 Il metodo per ottenere l'elenco delle entità è paginato di default e se non vengono specificate opzioni di default ritorna la prima pagina.
 
-```JavaScript
+```ts
 async function getKittens() {
   const kittenAction = await Portofino.getAction('kitten');
   return await kittenAction.search();
@@ -17,13 +17,13 @@ async function getKittens() {
 - `page` (number) il valore di default è 0, serve per indicare la pagina che vogliamo ottenere
 - `pageSize` (number) il valore di default è 10, indica il numero di elementi ritornati per ogni pagina
 
-```JavaScript {4-5}
+```ts {4-5}
 async function getKittens() {
   const kittenAction = await Portofino.getAction('kitten');
   return await kittenAction.search({
-      page: pagination.current,
-      pageSize: pagination.pageSize,
-    });
+    page: pagination.current,
+    pageSize: pagination.pageSize,
+  });
 }
 ```
 
@@ -38,7 +38,7 @@ Il parametro `sort` ci consente di impostare il parametro e la direzione di ordi
 - **property**: Una stringa rappresentante il nome della proprietà che vogliamo ordinare.
 - **direction**: Una stringa che può assumere i valori `asc` per ordinare in maniera ascendente e `desc` per ordinare in maniera discendente.
 
-```JavaScript
+```ts
 async function getKittens() {
   const kittenAction = await Portofino.getAction(‘kitten’);
   return await kittenAction.search({

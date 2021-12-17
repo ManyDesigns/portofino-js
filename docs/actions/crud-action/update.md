@@ -1,8 +1,8 @@
 # Aggiornamento di una entità
 
-```JavaScript {5}
+```ts {5}
 const user = {
-  username: 'Jonny'
+  username: 'Jonny',
 };
 
 const user = await userAction.update(entityID, user);

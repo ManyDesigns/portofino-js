@@ -1,9 +1,9 @@
 # Creazione di una entità
 
-```JavaScript {6}
+```ts {6}
 const user = {
   email: 'user@manydesigns.com',
-  username: 'John'
+  username: 'John',
 };
 
 const user = await userAction(user);

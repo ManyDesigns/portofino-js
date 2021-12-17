@@ -1,6 +1,6 @@
 # Attributi
 
-```TypeScript
+```ts
 interface EntityProperty {
   name: string;
   label: string;
@@ -14,7 +14,7 @@ interface EntityProperty {
 }
 ```
 
-```TypeScript
+```ts
 properties: EntityProperty[]
 
 getProperties(name: string): EntityProperty

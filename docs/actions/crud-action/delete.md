@@ -1,5 +1,5 @@
 # Ottenere una entità dal suo id
 
-```JavaScript
+```ts
 const entity = await action.delete(entityID);
 ```
