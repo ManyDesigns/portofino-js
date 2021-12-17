@@ -1,5 +1,5 @@
-import {Action} from "./internal";
-import NooNoo from "../NooNoo";
+import { Action } from '.';
+import NooNoo from '../NooNoo';
 
 export class RootAction extends Action {
   constructor(nooNoo: NooNoo, crudActionClasses: string[] | undefined) {

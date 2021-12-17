@@ -1,32 +1,32 @@
-import { PropertyType } from "../types/EntityTypes";
+import { PropertyType } from '../types/EntityTypes';
 
 export function getTypeFromJavaType(type: string): PropertyType {
   switch (type) {
-    case "java.lang.String":
-      return "string";
-    case "java.lang.Long":
-    case "java.math.BigDecimal":
-      return "number";
-    case "java.lang.Boolean":
-      return "boolean";
-    case "java.sql.Date":
-    case "java.sql.Timestamp":
-    case "java.sql.Time":
-    case "java.util.Date":
-      return "date";
+    case 'java.lang.String':
+      return 'string';
+    case 'java.lang.Long':
+    case 'java.math.BigDecimal':
+      return 'number';
+    case 'java.lang.Boolean':
+      return 'boolean';
+    case 'java.sql.Date':
+    case 'java.sql.Timestamp':
+    case 'java.sql.Time':
+    case 'java.util.Date':
+      return 'date';
     default:
       console.warn(
         `[Portofino] Unknown attribute type ${type} fallback to string`
       );
-      return "string";
+      return 'string';
   }
 }
 
 export function convertValueToJSType(type: PropertyType, value: any): any {
   switch (type) {
-    case "date":
+    case 'date':
       return value ? new Date(value) : null;
-    case "string":
+    case 'string':
       try {
         return JSON.parse(value);
       } catch (e) {
@@ -46,7 +46,7 @@ function anyDateToTimestamp(value: any) {
 
   if (!isNaN(date)) date = new Date(date);
 
-  if (typeof value === "string" || value instanceof String)
+  if (typeof value === 'string' || value instanceof String)
     date = new Date(value.toString());
 
   return date.getTime();
@@ -54,11 +54,11 @@ function anyDateToTimestamp(value: any) {
 
 export function convertJSTypeToValue(type: PropertyType, value: any): any {
   switch (type) {
-    case "date":
+    case 'date':
       return anyDateToTimestamp(value);
 
-    case "string":
-      if (typeof value === "object" && value !== null)
+    case 'string':
+      if (typeof value === 'object' && value !== null)
         return JSON.stringify(value);
       return value;
 

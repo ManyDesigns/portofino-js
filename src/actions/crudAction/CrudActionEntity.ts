@@ -1,28 +1,25 @@
-import {convertValueToJSType} from "../utils/EntityUtils";
-import { AxiosRequestConfig } from "axios";
-import { CrudAction } from "../actions/internal";
+import { convertValueToJSType } from '../../lib/entityPropertyConverters';
+import { AxiosRequestConfig } from 'axios';
+import { CrudAction } from '..';
 
 export default class CrudActionEntity {
   public readonly _isPortofinoEntity = true;
   public readonly key: string;
-  readonly #action: CrudAction
+  readonly #action: CrudAction;
   readonly #entityData: object;
 
-  constructor(
-    action: CrudAction,
-    entity: any,
-  ) {
+  constructor(action: CrudAction, entity: any) {
     this.key = entity.__rowKey || entity.id?.value;
     this.#action = action;
     this.#entityData = entity;
     Object.keys(entity)
-      .filter((attr) => attr !== "__rowKey")
+      .filter((attr) => attr !== '__rowKey')
       .forEach((attr) => {
         Object.defineProperty(this, attr, {
           get: () => this.getValue(attr),
           set: () =>
             console.warn(
-              "[Portofino] Cannot set value of a crud action entity"
+              '[Portofino] Cannot set value of a crud action entity'
             ),
         });
       });
@@ -47,12 +44,16 @@ export default class CrudActionEntity {
 
   toObject(): object {
     const obj = {};
-    obj["key"] = this.key;
+    obj['key'] = this.key;
     //todo vedere se deriva da un summary o da get
     this.#action.properties.forEach((p) => {
       if (p.enabled) obj[p.name] = this.getValue(p.name);
     });
     return obj;
+  }
+
+  toString(): string {
+    return JSON.stringify(this.toObject());
   }
 
   /** Rest operations **/
@@ -61,6 +62,6 @@ export default class CrudActionEntity {
   }
 
   async update(data: object, requestOptions?: AxiosRequestConfig) {
-    return await this.#action.update(this.key, data, requestOptions)
+    return await this.#action.update(this.key, data, requestOptions);
   }
 }
