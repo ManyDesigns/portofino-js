@@ -1,11 +1,9 @@
-const {defaults} = require('jest-config');
+const { resolve } = require('path');
 
 module.exports = {
-  preset: 'ts-jest',
+  rootDir: resolve(__dirname),
   testEnvironment: 'node',
-  testMatch: [
-    ...defaults.testMatch,
-    '**/tests/**/*.[jt]s?(x)',
-  ],
+  preset: 'ts-jest',
+  testMatch: ['<rootDir>/src/**/*.spec.ts'],
   silent: true,
 };

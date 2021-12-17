@@ -1,4 +1,7 @@
-import { convertJSTypeToValue, getTypeFromJavaType } from './EntityUtils';
+import {
+  convertJSTypeToValue,
+  getTypeFromJavaType,
+} from './entityPropertyConverters';
 import { EntityProperty } from '../types/EntityTypes';
 
 const annotationTypes: { [key: string]: string } = {

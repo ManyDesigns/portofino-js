@@ -1,12 +1,13 @@
 # Portofino connect
 
 TL;DR: Ecco la definizione dell'intefaccia typescript.
-``` ts
+
+```ts
 interface PortofinoConfig {
   url?: string;
   axiosInstance?: AxiosInstance;
 
-  enableAuth?: boolean,
+  enableAuth?: boolean;
   authAction?: string;
 
   crudActionClasses?: string[];
@@ -20,9 +21,9 @@ interface PortofinoConfig {
 
 L'url su cui il frontend proverà a contattare il backend. Se il frontend non gira sull'istanza di portofino allora dovrai specificare l'indirizzo su sui sono esposte le API.
 
-```js
+```ts
 Portofino.connect({
-    url: 'http://awesome.manydesigns.com/api',
+  url: 'http://awesome.manydesigns.com/api',
 });
 ```
 
@@ -31,15 +32,15 @@ Portofino.connect({
 - Type: `AxiosInstance`
 - Default: `undefined`
 
-L'attributo `axiosInstance` sostituisce l'istanza di axios usata da Portofino JS. 
+L'attributo `axiosInstance` sostituisce l'istanza di axios usata da Portofino JS.
 Di base ne viene creata una nuova, ma se non si utilizza un sistema di autenticazione esterno, come con nuxt, è possibile utilizzare un'istanza custom.
 
-```js
+```ts
 // ES: Plugin per nuxt js
-import Portofino from "@manydesigns/portofino";
+import Portofino from '@manydesigns/portofino';
 export default function (context) {
   Portofino.connect({
-    axiosInstance: context.$axios
+    axiosInstance: context.$axios,
   });
 }
 ```
@@ -51,7 +52,7 @@ export default function (context) {
 
 Qualora si utilizzasse un servizio di autenticazione diverso da quello offerto di default da Portofino è possibile disabilitare il servizio di autenticazione impostando `enableAuth` a `false`.
 
-```js
+```ts
 Portofino.connect({
   ...
   enableAuth: false,
@@ -80,7 +81,7 @@ Portofino.connect({
 Portofino non consente di riconoscere una CrudAction se questa è stata estesa da una classe di utilità.
 Per ovviare a questo problema, è possibile passare la lista delle nostre classi di utils che estendono la CrudAction di Portofino.
 
-```js
+```ts
 Portofino.connect({
   ...
   crudActionClasses: [

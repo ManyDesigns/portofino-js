@@ -1,13 +1,17 @@
-import ActionTypes from "../ActionTypes";
-import { CrudAction } from './internal'
-import NooNoo from "../NooNoo";
+import ActionTypes from '../ActionTypes';
+import { CrudAction } from '.';
+import NooNoo from '../NooNoo';
 
 export class Action {
   public _isPortofinoAction = true;
   readonly http: NooNoo;
 
-  constructor(parentNooNoo: NooNoo, action: string, private crudActionClasses: string[] = []) {
-    this.http = parentNooNoo.create(action)
+  constructor(
+    parentNooNoo: NooNoo,
+    action: string,
+    private crudActionClasses: string[] = []
+  ) {
+    this.http = parentNooNoo.create(action);
   }
 
   async getAction(name: string): Promise<Action> {
@@ -15,8 +19,15 @@ export class Action {
     try {
       const { data } = await this.http.get(`${name}/:description`);
 
-      if (ActionTypes.crudActionType === data.superclass || this.crudActionClasses.includes(data.superclass)) {
-        return await CrudAction.getCrudAction(this.http, name, this.crudActionClasses);
+      if (
+        ActionTypes.crudActionType === data.superclass ||
+        this.crudActionClasses.includes(data.superclass)
+      ) {
+        return await CrudAction.getCrudAction(
+          this.http,
+          name,
+          this.crudActionClasses
+        );
       } else if (ActionTypes.customActionType === data.superclass) {
         return new Action(this.http, name, this.crudActionClasses);
       }
@@ -25,6 +36,6 @@ export class Action {
       throw e;
     }
 
-    throw new Error("Portofino returned an unknown action type!");
+    throw new Error('Portofino returned an unknown action type!');
   }
 }

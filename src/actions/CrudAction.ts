@@ -1,18 +1,18 @@
-import { Action } from './internal';
+import { Action } from '.';
 import { AxiosRequestConfig } from 'axios';
 import * as qs from 'qs';
 import { EntityProperty } from '../types/EntityTypes';
-import { ExportOptions, SearchOptions } from '../types/CrudActionTypes';
-import CrudActionEntity from '../entity/CrudActionEntity';
+import { SearchOptions } from '../types/CrudActionTypes';
+import CrudActionEntity from './crudAction/CrudActionEntity';
 import {
   makeSearchObj,
   makeSortObj,
   mapClassAccessorToPropertiesDefinition,
-} from '../utils/crudActionDataMapper';
+} from '../lib/crudActionDataMapper';
 import NooNoo from '../NooNoo';
 import PortofinoSelectionProvider from './crudAction/SelectionProvider';
 import SelectionProvider from './crudAction/SelectionProvider';
-import { convertJSTypeToValue } from '../utils/EntityUtils';
+import { convertJSTypeToValue } from '../lib/entityPropertyConverters';
 
 interface PortofinoCrudConfig {
   name: string;
@@ -172,7 +172,10 @@ export class CrudAction extends Action {
   }
 
   /** Entity methods **/
-  async search(options?: SearchOptions, requestOptions?: AxiosRequestConfig) {
+  async search(
+    options?: Partial<SearchOptions>,
+    requestOptions?: AxiosRequestConfig
+  ) {
     const {
       pagination = true,
       page = 0,

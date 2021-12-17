@@ -1,4 +1,4 @@
-import { Action } from './internal';
+import { Action } from '.';
 import * as qs from 'qs';
 import NooNoo from '../NooNoo';
 
