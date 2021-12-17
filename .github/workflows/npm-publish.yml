@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.1.3
+      - uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'npm'
@@ -19,7 +19,7 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/setup-node@v2.1.3
+      - uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'npm'
@@ -39,7 +39,7 @@ jobs:
         with:
           name: build-artifact
           path: dist
-      - uses: actions/setup-node@v2.1.3
+      - uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'npm'

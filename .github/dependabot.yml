@@ -1,8 +1,15 @@
 version: 2
 updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: ci
+      include: scope
+
   - package-ecosystem: npm
-    target-branch: develop
-    directory: '.'
+    directory: '/'
     schedule:
       interval: weekly
     allow:
