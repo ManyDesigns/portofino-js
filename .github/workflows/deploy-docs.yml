@@ -6,6 +6,7 @@ on:
       - 'v*'
     paths:
       - 'docs/**'
+  workflow_dispatch:
 
 jobs:
   build-deploy:
