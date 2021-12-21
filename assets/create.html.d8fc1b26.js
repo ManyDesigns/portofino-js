@@ -1,1 +1,0 @@
-const t={key:"v-1d2120c8",path:"/actions/crud-action/create.html",title:"Creazione di una entit\xE0",lang:"it-IT",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1640085026e3,contributors:[{name:"Mattia Dapino",email:"mattia.dapino@hey.com",commits:1}]},filePathRelative:"actions/crud-action/create.md"};export{t as data};

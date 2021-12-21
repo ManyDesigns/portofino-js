@@ -1,1 +1,0 @@
-const t={key:"v-10a25d0e",path:"/actions/crud-action/delete.html",title:"Ottenere una entit\xE0 dal suo id",lang:"it-IT",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1640085026e3,contributors:[{name:"Mattia Dapino",email:"mattia.dapino@hey.com",commits:1}]},filePathRelative:"actions/crud-action/delete.md"};export{t as data};

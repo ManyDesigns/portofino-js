@@ -1,1 +1,0 @@
-const t={key:"v-55b19171",path:"/actions/crud-action/properties.html",title:"Attributi",lang:"it-IT",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1640085026e3,contributors:[{name:"Mattia Dapino",email:"mattia.dapino@hey.com",commits:1}]},filePathRelative:"actions/crud-action/properties.md"};export{t as data};
