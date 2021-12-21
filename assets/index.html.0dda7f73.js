@@ -1,0 +1,1 @@
+const t={key:"v-4e63b175",path:"/actions/crud-action/",title:"CrudAction",lang:"it-IT",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1640085026e3,contributors:[{name:"Mattia Dapino",email:"mattia.dapino@hey.com",commits:1}]},filePathRelative:"actions/crud-action/index.md"};export{t as data};

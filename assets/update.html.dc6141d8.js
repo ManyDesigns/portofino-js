@@ -1,0 +1,1 @@
+const t={key:"v-185e611b",path:"/actions/crud-action/update.html",title:"Aggiornamento di una entit\xE0",lang:"it-IT",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1640085026e3,contributors:[{name:"Mattia Dapino",email:"mattia.dapino@hey.com",commits:1}]},filePathRelative:"actions/crud-action/update.md"};export{t as data};
