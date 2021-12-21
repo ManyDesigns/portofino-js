@@ -6,5 +6,5 @@ const user = {
   username: 'John',
 };
 
-const user = await userAction(user);
+const user = await action.create(user);
 ```
