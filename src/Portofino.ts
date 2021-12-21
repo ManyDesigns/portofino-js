@@ -39,7 +39,7 @@ export default class Portofino {
     url = '/api',
     axiosInstance,
     enableAuth = true,
-    authAction = 'login',
+    authAction = ':auth',
     crudActionClasses,
   }: PortofinoConfig) {
     const baseURL = axiosInstance ? '' : url;

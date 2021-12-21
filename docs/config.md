@@ -69,7 +69,7 @@ Di default la `LoginAction` si trova sotto la action `login`, se non fosse così
 ```js
 Portofino.connect({
   ...
-  authAction: 'auth',
+  authAction: ':auth',
 });
 ```
 
