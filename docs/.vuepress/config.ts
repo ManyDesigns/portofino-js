@@ -50,12 +50,12 @@ export default defineUserConfig<DefaultThemeOptions>({
                 { text: 'Update', link: '/actions/crud-action/update' },
                 { text: 'Delete', link: '/actions/crud-action/delete' },
                 {
-                  text: 'Proprietà del modello',
-                  link: '/actions/crud-action/properties',
-                },
-                {
                   text: 'Selection providers',
                   link: '/actions/crud-action/selection-providers',
+                },
+                {
+                  text: 'Proprietà del modello',
+                  link: '/actions/crud-action/properties',
                 },
               ],
             },

@@ -43,8 +43,8 @@ async function getKittens() {
   const kittenAction = await Portofino.getAction(‘kitten’);
   return await kittenAction.search({
       sort: {
-        property: ‘name’,
-        direction: ‘asc’,
+        property: 'name',
+        direction: 'asc',
       },
     });
 }
@@ -61,3 +61,21 @@ Al momento i filtri avanzati che possiamo utilizzare sono:
 - **range di valori**: se passiamo un oggetto con attributi `min` e `max` allora verranno restituite solo le entità il cui attributo rientra in quell’intervallo di valori.
 
 Altre tipologie di filtri più avanzate verranno aggiunte nei prossimi rilasci.
+
+```ts
+import { endOfMonth, startOfMonth} from 'date-fns';
+
+async function getOfficeAccesses() {
+  const action = await Portofino.getAction('accesses');
+  action.search({
+    pagination: false,
+    filters: {
+      user_id: this.$auth.user.id,
+      access_date: {
+        min: startOfMonth(this.date),
+        max: endOfMonth(this.date),
+      },
+    },
+  }),
+}
+```
