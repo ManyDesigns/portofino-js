@@ -54,13 +54,45 @@ async function getKittens() {
 
 Infine possiamo filtrare il nostro elenco di entità grazie al parametro `filters`. Questo parametro si aspetta una mappa dove la chiave è il nome del parametro che vogliamo filtrare e il valore può essere una stringa, se vogliamo trovare i valori uguali a quello inserito oppure un oggetto se vogliamo dei filtri più avanzati.
 
-Al momento i filtri avanzati che possiamo utilizzare sono:
+### Stringhe
 
-- **su un elenco di valori**: Se passiamo una lista, se il valore della proprietà della nostra entità è inclusa nella lista, allora viene accettata.
+È possibile filtrare le stringhe anche per occorrenza passando un oggetto che indica la modalità di ricerca e il valore da ricercare.
+Le opzioni disponibili per la modalità di ricerca sono: `equals`, `starts` e `ends`. Se il campo non viene indicato o è nullo allora sarà applicato un filtro di tipo `contains`
 
-- **range di valori**: se passiamo un oggetto con attributi `min` e `max` allora verranno restituite solo le entità il cui attributo rientra in quell’intervallo di valori.
+```ts
+const filters = {
+  name: {
+    mode: 'starts',
+    value: 'Mario',
+  },
+};
+```
 
-Altre tipologie di filtri più avanzate verranno aggiunte nei prossimi rilasci.
+### Lista di valori
+
+Se passiamo una lista, Portofino ritornerà il valore della proprietà della nostra entità è inclusa nella lista, allora viene accettata.
+
+```ts
+const filters = {
+  roles: ['admin', 'administrator'],
+};
+```
+
+### min & max
+
+Se passiamo un oggetto con attributi `min` e `max` allora verranno restituite solo le entità il cui attributo rientra in quell’intervallo di valori.
+È possibile utilizzare anche solo uno dei due parametri.
+
+```ts
+const filters = {
+  created_at: {
+    min: '2021-12-20',
+    max: '2021-12-22
+  },
+};
+```
+
+### Esempio
 
 ```ts
 import { endOfMonth, startOfMonth} from 'date-fns';
