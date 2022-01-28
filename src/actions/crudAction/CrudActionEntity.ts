@@ -32,6 +32,7 @@ export default class CrudActionEntity {
   getValue(propName: string): any {
     const propDef = this.#action.properties.find((p) => p.name == propName);
     const prop = this.getProperty(propName);
+    if (!propDef) return prop;
     if (prop) return convertValueToJSType(propDef.type, prop.value);
     return undefined;
   }
