@@ -199,7 +199,8 @@ export class CrudAction extends Action {
       });
 
       this.totalRecords = data.totalRecords;
-      return data.records.map((record) => new CrudActionEntity(this, record));
+      const records = (data.records || data.Result);
+      return records.map((record) => new CrudActionEntity(this, record));
     } catch (e) {
       console.error('[Portofino] Unable to fetch data');
       throw e;
