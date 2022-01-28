@@ -1,3 +1,11 @@
+## [1.9.1](https://github.com/ManyDesigns/portofino-js/compare/v1.9.0...v1.9.1) (2022-01-28)
+
+
+### Bug Fixes
+
+* injected virtual property ([6df5465](https://github.com/ManyDesigns/portofino-js/commit/6df5465bcb967491d49f47f043969282fe2f725b))
+* supported portofino 4 search result ([3b3351f](https://github.com/ManyDesigns/portofino-js/commit/3b3351f84a413b8419b77ec86513e94362a20a27))
+
 # [1.9.0](https://github.com/ManyDesigns/portofino-js/compare/v1.8.1...v1.9.0) (2021-12-21)
 
 
