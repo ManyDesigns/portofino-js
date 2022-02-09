@@ -26,12 +26,19 @@ export function convertValueToJSType(type: PropertyType, value: any): any {
   switch (type) {
     case 'date':
       return value ? new Date(value) : null;
+
     case 'string':
       try {
         return JSON.parse(value);
       } catch (e) {
         return value;
       }
+
+    case 'number':
+      if (typeof value !== 'number') 
+        return parseFloat(value);
+      return value;
+
     default:
       return value;
   }
@@ -60,6 +67,11 @@ export function convertJSTypeToValue(type: PropertyType, value: any): any {
     case 'string':
       if (typeof value === 'object' && value !== null)
         return JSON.stringify(value);
+      return value;
+
+    case 'number':
+      if (typeof value !== 'number') 
+        return parseFloat(value);
       return value;
 
     default:
