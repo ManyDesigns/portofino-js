@@ -1,3 +1,11 @@
+## [1.9.2](https://github.com/ManyDesigns/portofino-js/compare/v1.9.1...v1.9.2) (2022-02-09)
+
+
+### Bug Fixes
+
+* **deps:** bump node-fetch from 2.6.6 to 2.6.7 ([#97](https://github.com/ManyDesigns/portofino-js/issues/97)) ([eecbccd](https://github.com/ManyDesigns/portofino-js/commit/eecbccd219df635935f7d53c8f3b821afe6ec95b))
+* forced number values to be numerical ([b6305c7](https://github.com/ManyDesigns/portofino-js/commit/b6305c7e8438151e28b74b5acfd379d3ea4b3027))
+
 ## [1.9.1](https://github.com/ManyDesigns/portofino-js/compare/v1.9.0...v1.9.1) (2022-01-28)
 
 
