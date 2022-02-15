@@ -6,6 +6,7 @@ export function getTypeFromJavaType(type: string): PropertyType {
       return 'string';
     case 'java.lang.Long':
     case 'java.math.BigDecimal':
+    case 'java.lang.Double':
       return 'number';
     case 'java.lang.Boolean':
       return 'boolean';
