@@ -27,3 +27,7 @@ async function callCustomMethod() {
   return action.http.get('thats-a-custom-method');
 }
 ```
+::: warning 
+I metodi con http sono equivalenti alla chiamata di axios, se vuoi ottenere un'entità devi usare il metodo get della action documentato sotto `Crud Actions > Read`.
+Tieni presente che se devi ottenere dei dati dagli endpoint di portofino quasi sicuramente questa libreria ha un metodo che li mappa, la maggior parte sono documentati sotto crud-actions 
+:::

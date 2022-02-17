@@ -38,4 +38,8 @@ export class Action {
 
     throw new Error('Portofino returned an unknown action type!');
   }
+
+  async getCrudAction(name: string): Promise<CrudAction> {
+    return (await this.getAction(name)) as CrudAction;
+  }
 }
