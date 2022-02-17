@@ -1,3 +1,11 @@
+## [1.9.3](https://github.com/ManyDesigns/portofino-js/compare/v1.9.2...v1.9.3) (2022-02-17)
+
+
+### Bug Fixes
+
+* added support for type java.lang.Double ([03964c0](https://github.com/ManyDesigns/portofino-js/commit/03964c051144726489dcc2e7fb89391e643f5d98))
+* getCrudAction method ([88b7466](https://github.com/ManyDesigns/portofino-js/commit/88b74664bd9cc81814392cc96529a777e48f73b4))
+
 ## [1.9.2](https://github.com/ManyDesigns/portofino-js/compare/v1.9.1...v1.9.2) (2022-02-09)
 
 
