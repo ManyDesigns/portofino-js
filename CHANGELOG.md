@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/ManyDesigns/portofino-js/compare/v1.9.4...v1.9.5) (2022-02-18)
+
+
+### Bug Fixes
+
+* modified promise returned type on getCrudAction method ([60a7b0b](https://github.com/ManyDesigns/portofino-js/commit/60a7b0b7d55b7631ab04b2c8e284557f277f80b3))
+
 ## [1.9.4](https://github.com/ManyDesigns/portofino-js/compare/v1.9.3...v1.9.4) (2022-02-18)
 
 
