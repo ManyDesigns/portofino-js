@@ -15,6 +15,10 @@ class PortofinoInstance {
     return this.#rootAction.getAction(name);
   }
 
+  getCrudAction(name: string): Promise<Action> {
+    return this.#rootAction.getCrudAction(name);
+  }
+
   get http(): NooNoo {
     return this.#rootAction.http;
   }
@@ -63,6 +67,11 @@ export default class Portofino {
   static getAction(name: string): Promise<Action> {
     Portofino.checkConnection();
     return this.#instance.getAction(name);
+  }
+
+  static getCrudAction(name: string): Promise<Action> {
+    Portofino.checkConnection();
+    return this.#instance.getCrudAction(name);
   }
 
   static get http(): NooNoo {
