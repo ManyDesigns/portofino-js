@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/ManyDesigns/portofino-js/compare/v1.9.3...v1.9.4) (2022-02-18)
+
+
+### Bug Fixes
+
+* exposed getCrudAction method in Portofino class ([38e0e76](https://github.com/ManyDesigns/portofino-js/commit/38e0e76e7fce71a434439a0383d23e16b2429209))
+
 ## [1.9.3](https://github.com/ManyDesigns/portofino-js/compare/v1.9.2...v1.9.3) (2022-02-17)
 
 
