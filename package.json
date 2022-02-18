@@ -39,7 +39,7 @@
     "@types/qs": "^6.9.7",
     "jest": "^27.4.5",
     "prettier": "^2.3.2",
-    "semantic-release": "^18.0.1",
+    "semantic-release": "^19.0.2",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.2.0",
     "tslib": "^2.3.0",
