@@ -1,4 +1,4 @@
-import { Action, RootAction, LoginAction } from './actions';
+import {Action, RootAction, LoginAction, CrudAction} from './actions';
 import PortofinoConfig from './types/PortofinoConfig';
 import NooNoo from './NooNoo';
 
@@ -15,7 +15,7 @@ class PortofinoInstance {
     return this.#rootAction.getAction(name);
   }
 
-  getCrudAction(name: string): Promise<Action> {
+  getCrudAction(name: string): Promise<CrudAction> {
     return this.#rootAction.getCrudAction(name);
   }
 
@@ -69,7 +69,7 @@ export default class Portofino {
     return this.#instance.getAction(name);
   }
 
-  static getCrudAction(name: string): Promise<Action> {
+  static getCrudAction(name: string): Promise<CrudAction> {
     Portofino.checkConnection();
     return this.#instance.getCrudAction(name);
   }
