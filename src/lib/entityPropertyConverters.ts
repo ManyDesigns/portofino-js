@@ -36,8 +36,9 @@ export function convertValueToJSType(type: PropertyType, value: any): any {
       }
 
     case 'number':
-      if (typeof value !== 'number') 
-        return parseFloat(value);
+      const parsedVal = parseFloat(value)
+      if (typeof value !== 'number' && parsedVal !== NaN) 
+        return parsedVal;
       return value;
 
     default:
