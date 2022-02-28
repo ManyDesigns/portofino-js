@@ -1,3 +1,13 @@
+## [1.9.6](https://github.com/ManyDesigns/portofino-js/compare/v1.9.5...v1.9.6) (2022-02-28)
+
+
+### Bug Fixes
+
+* **deps:** bump follow-redirects from 1.14.1 to 1.14.8 ([d8f83f6](https://github.com/ManyDesigns/portofino-js/commit/d8f83f6af3856c4f70968025d0030298625fc314))
+* **deps:** bump nanoid from 3.1.30 to 3.3.1 ([14e1567](https://github.com/ManyDesigns/portofino-js/commit/14e1567563fd0d2da602892ef3f5e3b507c6278e))
+* **deps:** bump prismjs from 1.26.0 to 1.27.0 ([20e2690](https://github.com/ManyDesigns/portofino-js/commit/20e2690e7c7e249d0bddf3fce4624106047f38df))
+* undefined number return Nan ([fd4657b](https://github.com/ManyDesigns/portofino-js/commit/fd4657b58c44923815a400841003407f5c29d8b4))
+
 ## [1.9.5](https://github.com/ManyDesigns/portofino-js/compare/v1.9.4...v1.9.5) (2022-02-18)
 
 
