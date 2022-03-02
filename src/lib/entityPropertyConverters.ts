@@ -30,20 +30,35 @@ export function convertValueToJSType(type: PropertyType, value: any): any {
 
     case 'string':
       try {
-        return JSON.parse(value);
+        if(hasJsonStructure(value))
+          return JSON.parse(value);
+        else
+          return value;
       } catch (e) {
         return value;
       }
 
     case 'number':
       const parsedVal = parseFloat(value)
-      if (typeof value !== 'number' && parsedVal !== NaN) 
+      if (typeof value !== 'number' && parsedVal !== NaN)
         return parsedVal;
       return value;
 
     default:
       return value;
   }
+}
+
+function hasJsonStructure(str) {
+    if (typeof str !== 'string') return false;
+    try {
+        const result = JSON.parse(str);
+        const type = Object.prototype.toString.call(result);
+        return type === '[object Object]'
+            || type === '[object Array]';
+    } catch (err) {
+        return false;
+    }
 }
 
 function anyDateToTimestamp(value: any) {
@@ -72,7 +87,7 @@ export function convertJSTypeToValue(type: PropertyType, value: any): any {
       return value;
 
     case 'number':
-      if (typeof value !== 'number') 
+      if (typeof value !== 'number')
         return parseFloat(value);
       return value;
 
