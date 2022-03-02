@@ -1,3 +1,10 @@
+## [1.9.7](https://github.com/ManyDesigns/portofino-js/compare/v1.9.6...v1.9.7) (2022-03-02)
+
+
+### Bug Fixes
+
+* manager number into string field ([ede8cc0](https://github.com/ManyDesigns/portofino-js/commit/ede8cc0036456f576f6a351ba1c47d1986c489d3))
+
 ## [1.9.6](https://github.com/ManyDesigns/portofino-js/compare/v1.9.5...v1.9.6) (2022-02-28)
 
 
