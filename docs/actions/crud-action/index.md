@@ -9,5 +9,7 @@ Se hai esteso la CrudAction vedi [questa pagina](/config#crudactionclasses), al 
 # Operazioni CRUD
 
 ::: tip
-In tutti i metodi CRUD consentono di passare, come ultimo parametro, un oggetto `AxiosConfig` per modificare il comportamento della chiamata.
+In tutti i metodi CRUD consentono di passare, come ultimo parametro, un oggetto `AxiosRequestConfig` per modificare il comportamento della chiamata.
 :::
+
+La definizione di AxiosRequestConfig è disponibile [sul sito di Axios](https://axios-http.com/docs/req_config)
