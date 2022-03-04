@@ -195,6 +195,7 @@ export class CrudAction extends Action {
           firstResult: page && pagination ? (page - 1) * pageSize : undefined,
           ...makeSortObj(sort),
           ...makeSearchObj(filters, this.properties),
+          ...(requestOptions ? requestOptions.params : {}),
         },
       });
 
