@@ -1,3 +1,10 @@
+## [1.9.8](https://github.com/ManyDesigns/portofino-js/compare/v1.9.7...v1.9.8) (2022-03-04)
+
+
+### Bug Fixes
+
+* override search axios params ([c1fc147](https://github.com/ManyDesigns/portofino-js/commit/c1fc14790cb1402ab8831a26ccc8ee1849bc5275))
+
 ## [1.9.7](https://github.com/ManyDesigns/portofino-js/compare/v1.9.6...v1.9.7) (2022-03-02)
 
 
