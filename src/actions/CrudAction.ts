@@ -246,4 +246,9 @@ export class CrudAction extends Action {
   async delete(id: string, requestOptions?: AxiosRequestConfig) {
     await this.http.delete(id.toString(), requestOptions);
   }
+
+
+  createCrudEntity(object:any){
+    return new CrudActionEntity(this,object);
+  }
 }
