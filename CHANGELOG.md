@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/ManyDesigns/portofino-js/compare/v1.9.8...v1.10.0) (2022-03-29)
+
+
+### Features
+
+* new method createCrudEntity ([8b1e3a8](https://github.com/ManyDesigns/portofino-js/commit/8b1e3a884f6f72d2b4887235211fe67fb439f128))
+
 ## [1.9.8](https://github.com/ManyDesigns/portofino-js/compare/v1.9.7...v1.9.8) (2022-03-04)
 
 
