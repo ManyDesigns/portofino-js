@@ -24,6 +24,9 @@ export function getTypeFromJavaType(type: string): PropertyType {
 }
 
 export function convertValueToJSType(type: PropertyType, value: any): any {
+  if (value == null || value == undefined)
+    return null;
+    
   switch (type) {
     case 'date':
       return value ? new Date(value) : null;
