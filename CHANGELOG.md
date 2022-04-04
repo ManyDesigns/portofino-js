@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/ManyDesigns/portofino-js/compare/v1.10.0...v1.10.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* convertion of null value ([34d3ff9](https://github.com/ManyDesigns/portofino-js/commit/34d3ff9c37dff55b5920e47fc70f2afc23f3f760))
+
 # [1.10.0](https://github.com/ManyDesigns/portofino-js/compare/v1.9.8...v1.10.0) (2022-03-29)
 
 
