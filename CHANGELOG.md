@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/ManyDesigns/portofino-js/compare/v1.10.1...v1.11.0) (2022-04-14)
+
+
+### Features
+
+* integrate refresh token method ([f02007b](https://github.com/ManyDesigns/portofino-js/commit/f02007b82b1b54aa0fa274e3f0f93162438b9735))
+
 ## [1.10.1](https://github.com/ManyDesigns/portofino-js/compare/v1.10.0...v1.10.1) (2022-04-04)
 
 
