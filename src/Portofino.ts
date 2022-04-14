@@ -39,19 +39,21 @@ export default class Portofino {
     Portofino.#instance = Portofino.createInstance(config);
   }
 
+
   static createInstance({
     url = '/api',
     axiosInstance,
     enableAuth = true,
     authAction = ':auth',
-    crudActionClasses,
+    crudActionClasses
   }: PortofinoConfig) {
     const baseURL = axiosInstance ? '' : url;
+    console.log("authAction", authAction)
 
     if (baseURL) console.debug('[Portofino] Connecting to ', baseURL);
     else console.debug('[Portofino] Connecting via axios instance');
 
-    const noo = NooNoo.create(baseURL, axiosInstance);
+    const noo = NooNoo.create(baseURL, axiosInstance, authAction);
     const rootAction = new RootAction(noo, crudActionClasses);
 
     let auth: LoginAction;

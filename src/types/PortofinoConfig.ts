@@ -1,11 +1,13 @@
 import { AxiosInstance } from 'axios';
+import AuthAction from "./AuthAction";
 
 export default interface PortofinoConfig {
   url?: string;
   axiosInstance?: AxiosInstance;
 
   enableAuth?: boolean;
-  authAction?: string;
+  authAction?: AuthAction|string;
+  enableRefreshToken?: boolean;
 
   crudActionClasses?: string[];
 }
