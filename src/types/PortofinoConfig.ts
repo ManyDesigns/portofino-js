@@ -7,7 +7,6 @@ export default interface PortofinoConfig {
 
   enableAuth?: boolean;
   authAction?: AuthAction|string;
-  enableRefreshToken?: boolean;
 
   crudActionClasses?: string[];
 }
