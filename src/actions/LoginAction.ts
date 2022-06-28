@@ -32,10 +32,11 @@ export class LoginAction extends Action {
         crudActionClasses: string[]
     ) {
         let loginAction
-        if (action as AuthAction)
+        if (action instanceof Object) {
             loginAction = (action as AuthAction).action
-        else
+        } else {
             loginAction = action
+        }
 
         super(_nooNoo, loginAction, crudActionClasses);
         this.is_authenticated = !!localStorage.getItem(JWT_KEY);
