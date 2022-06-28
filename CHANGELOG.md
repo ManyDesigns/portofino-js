@@ -1,3 +1,11 @@
+## [1.11.1](https://github.com/ManyDesigns/portofino-js/compare/v1.11.0...v1.11.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* auth action ([c3d68c8](https://github.com/ManyDesigns/portofino-js/commit/c3d68c8079d188eaeb2bd7e28d15e1c5ad3618c2))
+* package lock ([23018ab](https://github.com/ManyDesigns/portofino-js/commit/23018ab4464935542d9fc9aa65c2c0cdacd1745f))
+
 # [1.11.0](https://github.com/ManyDesigns/portofino-js/compare/v1.10.1...v1.11.0) (2022-04-14)
 
 
