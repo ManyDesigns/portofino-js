@@ -55,7 +55,6 @@ export default class Portofino {
 
     const noo = NooNoo.create(baseURL, axiosInstance, authAction);
     const rootAction = new RootAction(noo, crudActionClasses);
-
     let auth: LoginAction;
     if (enableAuth) auth = new LoginAction(noo, authAction, crudActionClasses);
 
