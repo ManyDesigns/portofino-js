@@ -1,5 +1,6 @@
 import path from 'path';
 import typescript from '@rollup/plugin-typescript';
+import "./systemjs.config.js";
 
 module.exports = {
   build: {
