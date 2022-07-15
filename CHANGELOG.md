@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/ManyDesigns/portofino-js/compare/v1.11.1...v1.12.0) (2022-07-15)
+
+
+### Features
+
+* added export of crudActionDataMapper ([059d713](https://github.com/ManyDesigns/portofino-js/commit/059d7139ac7202316ac7b46100ca48703647b29d))
+
 ## [1.11.1](https://github.com/ManyDesigns/portofino-js/compare/v1.11.0...v1.11.1) (2022-06-28)
 
 
