@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "webpack build && vite build",
-    "serve": "webpack serve --port 9200",
+    "serve": "webpack serve --port 9301",
     "build:watch": "vite build --watch -m development",
     "test": "jest",
     "test:ts": "tsc --noEmit",

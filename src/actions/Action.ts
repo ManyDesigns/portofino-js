@@ -4,7 +4,7 @@ import NooNoo from '../NooNoo';
 
 export class Action {
   public _isPortofinoAction = true;
-  readonly http: NooNoo;
+  http: NooNoo;
 
   constructor(
     parentNooNoo: NooNoo,
