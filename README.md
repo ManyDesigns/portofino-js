@@ -8,4 +8,4 @@ Portofino JS è una libreria javascript per mappare le chiamate http di Portofin
 
 ## Rilascio
 
-Per eseguire un rilascio è sufficente lanciare manualmente la action `release`, questa si occuperà di far girare i test, generare il chengelog e la nuova versione a partire dai conventional-commit e di rilasciarla su GitHub e su NPM.
+Per eseguire un rilascio è sufficente lanciare manualmente la action `release`, questa si occuperà di far girare i test, generare il changelog e la nuova versione a partire dai conventional-commit e di rilasciarla su GitHub e su NPM.
