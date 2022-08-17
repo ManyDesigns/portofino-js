@@ -18,7 +18,8 @@
     }
   },
   "scripts": {
-    "build": "vite build",
+    "build": "webpack build && vite build",
+    "serve": "webpack serve --port 9301",
     "build:watch": "vite build --watch -m development",
     "test": "jest",
     "test:ts": "tsc --noEmit",
@@ -29,7 +30,8 @@
   "dependencies": {
     "axios": "^0.21",
     "date-fns": "^2.20",
-    "qs": "^6.9"
+    "qs": "^6.9",
+    "systemjs": "^6.12.1"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.1",
@@ -37,14 +39,27 @@
     "@semantic-release/git": "^10.0.1",
     "@types/jest": "^27.0.1",
     "@types/qs": "^6.9.7",
+    "@webpack-cli/generators": "^2.5.0",
     "jest": "^27.4.5",
     "prettier": "^2.3.2",
     "semantic-release": "^18.0.1",
+    "systemjs-configurator": "^0.4.1",
     "ts-jest": "^27.1.2",
+    "ts-loader": "^9.3.1",
     "ts-node": "^10.2.0",
     "tslib": "^2.3.0",
-    "typescript": "^4.3.5",
+    "typescript": "^4.7.4",
     "vite": "^2.4.2",
-    "vuepress": "^2.0.0-beta.27"
+    "vuepress": "^2.0.0-beta.27",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "overrides": {
+    "systemjs": {
+      "format": "global",
+      "deps": []
+    },
+    "exports": "$"
   }
 }
