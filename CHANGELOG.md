@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/ManyDesigns/portofino-js/compare/v1.12.0...v1.12.1) (2022-08-17)
+
+
+### Bug Fixes
+
+* just to release ([9ef89df](https://github.com/ManyDesigns/portofino-js/commit/9ef89df79f3814629718afb1945d6af5c1fc8306))
+
 # [1.12.0](https://github.com/ManyDesigns/portofino-js/compare/v1.11.1...v1.12.0) (2022-07-15)
 
 
