@@ -44,6 +44,10 @@ export default class NooNoo {
         return new NooNoo(url.toString());
     }
 
+    reset(url: string): NooNoo {
+        return new NooNoo(url);
+    }
+
     private getRequestUrl(url?: string | number): string {
         return joinPath(this._baseURL, url);
     }

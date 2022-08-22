@@ -7,6 +7,6 @@ export class RootAction extends Action {
   }
 
   changeBaseUrl(url: string) {
-    this.http = this.http.create(url);
+    this.http = this.http.reset(url);
   }
 }
