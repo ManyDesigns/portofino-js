@@ -9,4 +9,5 @@ export default interface PortofinoConfig {
   authAction?: AuthAction|string;
 
   crudActionClasses?: string[];
+  useCache?: boolean;
 }

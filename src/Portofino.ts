@@ -1,4 +1,4 @@
-import {Action, RootAction, LoginAction, CrudAction} from './actions';
+import {Action, CrudAction, LoginAction, RootAction} from './actions';
 import PortofinoConfig from './types/PortofinoConfig';
 import NooNoo from './NooNoo';
 
@@ -33,6 +33,51 @@ class PortofinoInstance {
 
 }
 
+class PortofinoCacheInstance extends PortofinoInstance {
+
+    #actionCache = new Map<String, Action>();
+
+    constructor(rootAction: RootAction, auth: LoginAction) {
+        super(rootAction, auth);
+    }
+
+    private calculateCacheKey(actionName: string): string {
+        const baseUrl = this.http.baseURL;
+        return`${baseUrl}/${actionName}`;
+    }
+
+    getCrudAction(name: string): Promise<CrudAction> {
+        const key = this.calculateCacheKey(name);
+
+        if (this.#actionCache.has(key)) {
+            const action = this.#actionCache.get(key);
+            return new Promise<CrudAction>((resolve) => resolve(action as CrudAction));
+        }
+
+        return super.getCrudAction(name)
+            .then(action => {
+                this.#actionCache.set(key, action);
+                return action;
+            });
+    }
+
+    getAction(name: string): Promise<Action> {
+        const key = this.calculateCacheKey(name);
+
+        if (this.#actionCache.has(key)) {
+            const action = this.#actionCache.get(key);
+            return new Promise<Action>((resolve) => resolve(action));
+        }
+
+        return super.getAction(name)
+            .then(action => {
+                this.#actionCache.set(key, action);
+                return action;
+            });
+    }
+
+}
+
 export default class Portofino {
     static #instance: PortofinoInstance;
 
@@ -51,7 +96,8 @@ export default class Portofino {
                               axiosInstance,
                               enableAuth = true,
                               authAction = ':auth',
-                              crudActionClasses
+                              crudActionClasses,
+                              useCache = false
                           }: PortofinoConfig) {
         const baseURL = axiosInstance ? '' : url;
         console.log("authAction", authAction)
@@ -64,7 +110,7 @@ export default class Portofino {
         let auth: LoginAction;
         if (enableAuth) auth = new LoginAction(noo, authAction, crudActionClasses);
 
-        return new PortofinoInstance(rootAction, auth);
+        return useCache ? new PortofinoCacheInstance(rootAction, auth) : new PortofinoInstance(rootAction, auth);
     }
 
     private static checkConnection() {

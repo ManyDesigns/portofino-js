@@ -39,6 +39,10 @@ export default class NooNoo {
         return new NooNoo(baseURL);
     }
 
+    get baseURL(): string {
+        return this._baseURL;
+    }
+
     create(actionName: string): NooNoo {
         const url = joinPath(this._baseURL, actionName);
         return new NooNoo(url.toString());
