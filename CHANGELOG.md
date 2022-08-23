@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/ManyDesigns/portofino-js/compare/v1.12.2...v1.13.0) (2022-08-23)
+
+
+### Features
+
+* added action cache ([787341e](https://github.com/ManyDesigns/portofino-js/commit/787341effa892cca42cb74451344598b3464579d))
+
 ## [1.12.2](https://github.com/ManyDesigns/portofino-js/compare/v1.12.1...v1.12.2) (2022-08-22)
 
 
