@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/ManyDesigns/portofino-js/compare/v1.13.0...v1.14.0) (2022-09-28)
+
+
+### Features
+
+* added multi instance support ([7625880](https://github.com/ManyDesigns/portofino-js/commit/7625880c47a7493dbb4115930cedcb33640572c7))
+
 # [1.13.0](https://github.com/ManyDesigns/portofino-js/compare/v1.12.2...v1.13.0) (2022-08-23)
 
 
