@@ -1,9 +1,10 @@
 # Portofino connect
 
-TL;DR: Ecco la definizione dell'intefaccia typescript.
+TL;DR: Ecco la definizione dell'interfaccia typescript.
 
 ```ts
 interface PortofinoConfig {
+    name?: string;
   url?: string;
   axiosInstance?: AxiosInstance;
 
@@ -13,6 +14,12 @@ interface PortofinoConfig {
   crudActionClasses?: string[];
 }
 ```
+
+## name
+- Type: `string`
+- Default: `default`
+
+Nome da dare all'istanza da creare.
 
 ## url
 
