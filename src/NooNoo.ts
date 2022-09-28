@@ -5,26 +5,28 @@ import {JWT_KEY, LoginAction} from "./actions";
 import AuthAction from "./types/AuthAction";
 
 export default class NooNoo {
-    static #instance: AxiosInstance;
+    #instance: AxiosInstance;
     static request = 0;
-    static authAction;
+    #authAction;
 
-    private constructor(private readonly _baseURL: string) {
+    private constructor(private readonly _baseURL: string, instance: AxiosInstance, authAction?: AuthAction | string) {
+        this.#instance = instance;
+        this.#authAction = authAction;
     }
 
     static create(baseURL: string, instance?: AxiosInstance | undefined, authAction?: AuthAction | string): NooNoo {
         if (!instance) instance = axios.create();
 
-        NooNoo.authAction = authAction;
-        NooNoo.#instance = instance;
+        // NooNoo.authAction = authAction;
+        // NooNoo.#instance = instance;
 
-        NooNoo.#instance.interceptors.request.use((config) => {
+        instance.interceptors.request.use((config) => {
             const jwt = localStorage.getItem(JWT_KEY);
             if (jwt) config.headers.Authorization = jwt;
             return config;
         });
 
-        NooNoo.#instance.interceptors.response.use(
+        instance.interceptors.response.use(
             (response) => response,
             (error) => {
                 const {response} = error;
@@ -36,7 +38,7 @@ export default class NooNoo {
             }
         );
 
-        return new NooNoo(baseURL);
+        return new NooNoo(baseURL, instance, authAction);
     }
 
     get baseURL(): string {
@@ -45,11 +47,11 @@ export default class NooNoo {
 
     create(actionName: string): NooNoo {
         const url = joinPath(this._baseURL, actionName);
-        return new NooNoo(url.toString());
+        return new NooNoo(url.toString(), this.#instance, this.#authAction);
     }
 
     reset(url: string): NooNoo {
-        return new NooNoo(url);
+        return new NooNoo(url, this.#instance, this.#authAction);
     }
 
     private getRequestUrl(url?: string | number): string {
@@ -57,12 +59,12 @@ export default class NooNoo {
     }
 
     async refreshToken(): Promise<void> {
-        if ((NooNoo.authAction as AuthAction).enableRefreshToken) {
+        if ((this.#authAction as AuthAction).enableRefreshToken) {
             NooNoo.request = NooNoo.request + 1;
             if (NooNoo.request > 2) {
                 NooNoo.request = 0;
-                const loginAction = (NooNoo.authAction as AuthAction).action
-                await LoginAction.refreshToken(NooNoo.#instance, loginAction)
+                const loginAction = (this.#authAction as AuthAction).action
+                await LoginAction.refreshToken(this.#instance, loginAction)
             }
         }
     }
@@ -72,7 +74,7 @@ export default class NooNoo {
         config?: AxiosRequestConfig
     ): Promise<R> {
         await this.refreshToken()
-        return NooNoo.#instance.get(this.getRequestUrl(url), config);
+        return this.#instance.get(this.getRequestUrl(url), config);
     }
 
     public async post<T = any, R = AxiosResponse<T>>(
@@ -81,7 +83,7 @@ export default class NooNoo {
         config ?: AxiosRequestConfig
     ): Promise<R> {
         await this.refreshToken()
-        return NooNoo.#instance.post(this.getRequestUrl(url), data, config);
+        return this.#instance.post(this.getRequestUrl(url), data, config);
     }
 
     public async put<T = any, R = AxiosResponse<T>>(
@@ -90,7 +92,7 @@ export default class NooNoo {
         config ?: AxiosRequestConfig
     ): Promise<R> {
         await this.refreshToken()
-        return NooNoo.#instance.put(this.getRequestUrl(url), data, config);
+        return this.#instance.put(this.getRequestUrl(url), data, config);
     }
 
     public async delete<T = any, R = AxiosResponse<T>>(
@@ -98,6 +100,6 @@ export default class NooNoo {
         config?: AxiosRequestConfig
     ): Promise<R> {
         await this.refreshToken()
-        return NooNoo.#instance.delete(this.getRequestUrl(url), config);
+        return this.#instance.delete(this.getRequestUrl(url), config);
     }
 }

@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios';
 import AuthAction from "./AuthAction";
 
 export default interface PortofinoConfig {
+  name?: string;
   url?: string;
   axiosInstance?: AxiosInstance;
 
