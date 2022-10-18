@@ -41,6 +41,10 @@ export default class NooNoo {
         return new NooNoo(baseURL, instance, authAction);
     }
 
+    get interceptors() {
+        return this.#instance.interceptors;
+    }
+
     get baseURL(): string {
         return this._baseURL;
     }
