@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/ManyDesigns/portofino-js/compare/v1.14.0...v1.15.0) (2022-10-18)
+
+
+### Features
+
+* get axios interceptors ([1b9c16a](https://github.com/ManyDesigns/portofino-js/commit/1b9c16aa62cc107c2e8dbe034324da354a612934))
+
 # [1.14.0](https://github.com/ManyDesigns/portofino-js/compare/v1.13.0...v1.14.0) (2022-09-28)
 
 
