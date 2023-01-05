@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/ManyDesigns/portofino-js/compare/v1.15.0...v1.16.0) (2023-01-05)
+
+
+### Features
+
+* manage pretty name into get object service ([2c8cd8e](https://github.com/ManyDesigns/portofino-js/commit/2c8cd8ed5580ffc137f7f3a6557c7d0a72feb610))
+
 # [1.15.0](https://github.com/ManyDesigns/portofino-js/compare/v1.14.0...v1.15.0) (2022-10-18)
 
 
