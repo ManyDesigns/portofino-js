@@ -211,7 +211,7 @@ export class CrudAction extends Action {
   async get(id: string, requestOptions?: AxiosRequestConfig) {
     return await this.http
       .get(`${id}`, requestOptions)
-      .then(({ data }) => new CrudActionEntity(this, data));
+      .then(({ data,headers }) => new CrudActionEntity(this, data,headers['x-portofino-pretty-name']));
   }
 
   async create(data: any, requestOptions?: AxiosRequestConfig) {

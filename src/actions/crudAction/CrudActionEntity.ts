@@ -8,10 +8,14 @@ export default class CrudActionEntity {
   readonly #action: CrudAction;
   readonly #entityData: object;
 
-  constructor(action: CrudAction, entity: any) {
+  readonly #prettyName : string|undefined;
+
+
+  constructor(action: CrudAction, entity: any, prettyName:string|undefined = undefined) {
     this.key = entity.__rowKey || entity.id?.value;
     this.#action = action;
     this.#entityData = entity;
+    this.#prettyName = prettyName;
     Object.keys(entity)
       .filter((attr) => attr !== '__rowKey')
       .forEach((attr) => {
@@ -46,6 +50,7 @@ export default class CrudActionEntity {
   toObject(): object {
     const obj = {};
     obj['key'] = this.key;
+    obj['portofinoPrettyName'] = this.getPrettyName();
     //todo vedere se deriva da un summary o da get
     this.#action.properties.forEach((p) => {
       if (p.enabled) obj[p.name] = this.getValue(p.name);
@@ -64,5 +69,9 @@ export default class CrudActionEntity {
 
   async update(data: object, requestOptions?: AxiosRequestConfig) {
     return await this.#action.update(this.key, data, requestOptions);
+  }
+
+  getPrettyName() :string{
+    return this.#prettyName;
   }
 }
