@@ -27,6 +27,7 @@ class PortofinoInstance {
      */
     changeBaseUrl(url: string): void {
         this.#rootAction.changeBaseUrl(url);
+        this.#auth.changeBaseUrl(url);
     }
 
     get http(): NooNoo {
