@@ -1,3 +1,10 @@
+## [1.16.3](https://github.com/ManyDesigns/portofino-js/compare/v1.16.2...v1.16.3) (2023-01-23)
+
+
+### Bug Fixes
+
+* change base url on auth action ([11abf50](https://github.com/ManyDesigns/portofino-js/commit/11abf50ec52acf41add62b8ada388d095522ce02))
+
 ## [1.16.2](https://github.com/ManyDesigns/portofino-js/compare/v1.16.1...v1.16.2) (2023-01-23)
 
 
