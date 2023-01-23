@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/ManyDesigns/portofino-js/compare/v1.16.1...v1.16.2) (2023-01-23)
+
+
+### Bug Fixes
+
+* change base url ([ae9898e](https://github.com/ManyDesigns/portofino-js/commit/ae9898e67c92db2f2c6008452436acab325b31b9))
+
 ## [1.16.1](https://github.com/ManyDesigns/portofino-js/compare/v1.16.0...v1.16.1) (2023-01-23)
 
 
