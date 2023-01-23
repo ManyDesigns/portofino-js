@@ -8,10 +8,10 @@ export class Action {
 
   constructor(
     parentNooNoo: NooNoo,
-    action: string,
+    private readonly actionName: string,
     private crudActionClasses: string[] = []
   ) {
-    this.http = parentNooNoo.create(action);
+    this.http = parentNooNoo.create(actionName);
   }
 
   async getAction(name: string): Promise<Action> {
@@ -43,7 +43,7 @@ export class Action {
     return (await this.getAction(name)) as CrudAction;
   }
   changeBaseUrl(url: string) {
-    this.http = this.http.reset(url);
+    this.http = this.http.reset(url).create(this.actionName);
   }
 
 }
