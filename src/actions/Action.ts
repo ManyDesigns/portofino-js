@@ -42,4 +42,8 @@ export class Action {
   async getCrudAction(name: string): Promise<CrudAction> {
     return (await this.getAction(name)) as CrudAction;
   }
+  changeBaseUrl(url: string) {
+    this.http = this.http.reset(url);
+  }
+
 }
