@@ -38,7 +38,7 @@ export class LoginAction extends Action {
             loginAction = action
         }
 
-        super(_nooNoo, loginAction, crudActionClasses);
+        super(_nooNoo, loginAction, crudActionClasses,undefined);
         this.is_authenticated = !!localStorage.getItem(JWT_KEY);
     }
 

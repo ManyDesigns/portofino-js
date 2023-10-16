@@ -6,7 +6,7 @@ export class Action {
   public _isPortofinoAction = true;
   http: NooNoo;
 
-  #description: any;
+  #description: any|undefined;
 
   constructor(
     parentNooNoo: NooNoo,
