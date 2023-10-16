@@ -1,3 +1,11 @@
+## [1.16.4](https://github.com/ManyDesigns/portofino-js/compare/v1.16.3...v1.16.4) (2023-10-16)
+
+
+### Bug Fixes
+
+* manage description info ([d8daf2d](https://github.com/ManyDesigns/portofino-js/commit/d8daf2d9f65f8debcb032eb524a95c1dc11d2a43))
+* manage description info ([5f1c8fc](https://github.com/ManyDesigns/portofino-js/commit/5f1c8fce3c0848f7b86d3482430cac3d636d56b7))
+
 ## [1.16.3](https://github.com/ManyDesigns/portofino-js/compare/v1.16.2...v1.16.3) (2023-01-23)
 
 
