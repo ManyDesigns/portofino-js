@@ -37,9 +37,10 @@ export class CrudAction extends Action {
     configuration: any,
     classAccessor: any,
     selProviders: any,
-    crudActionClasses: string[]
+    crudActionClasses: string[],
+    descriptionData: any,
   ) {
-    super(_nooNoo, action, crudActionClasses);
+    super(_nooNoo, action, crudActionClasses,descriptionData);
     this.#properties = mapClassAccessorToPropertiesDefinition(classAccessor);
     this.#selectionProviders = selProviders.map(
       (sp: any) =>
@@ -64,6 +65,7 @@ export class CrudAction extends Action {
   }
 
   public static async getCrudAction(
+      descriptionData:any,
     _nooNoo: NooNoo,
     action: string,
     crudActionClasses: string[]
@@ -83,7 +85,8 @@ export class CrudAction extends Action {
       configuration,
       classAccessor,
       selProviders,
-      crudActionClasses
+      crudActionClasses,
+          descriptionData
     );
   }
 
@@ -118,6 +121,9 @@ export class CrudAction extends Action {
   getAttributes(): EntityProperty[] {
     return this.properties;
   }
+
+
+
 
   /**
    * @deprecated use getProperty(name)

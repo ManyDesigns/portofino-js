@@ -6,12 +6,16 @@ export class Action {
   public _isPortofinoAction = true;
   http: NooNoo;
 
+  #description: any;
+
   constructor(
     parentNooNoo: NooNoo,
     private readonly actionName: string,
-    private crudActionClasses: string[] = []
+    private crudActionClasses: string[] = [],
+    description:any
   ) {
     this.http = parentNooNoo.create(actionName);
+    this.#description  =description;
   }
 
   async getAction(name: string): Promise<Action> {
@@ -23,13 +27,13 @@ export class Action {
         ActionTypes.crudActionType === data.superclass ||
         this.crudActionClasses.includes(data.superclass)
       ) {
-        return await CrudAction.getCrudAction(
+        return await CrudAction.getCrudAction(data,
           this.http,
           name,
           this.crudActionClasses
         );
       } else if (ActionTypes.customActionType === data.superclass) {
-        return new Action(this.http, name, this.crudActionClasses);
+        return new Action(this.http, name, this.crudActionClasses,data);
       }
     } catch (e) {
       console.error('[Portofino]', e.message); //todo PortofinoError
@@ -45,5 +49,7 @@ export class Action {
   changeBaseUrl(url: string) {
     this.http = this.http.reset(url).create(this.actionName);
   }
-
+  get description(): any {
+    return this.#description;
+  }
 }
