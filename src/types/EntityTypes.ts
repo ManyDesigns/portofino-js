@@ -1,4 +1,4 @@
-export type PropertyType = "string" | "number" | "date" | "boolean";
+export type PropertyType = "string" | "number" | "date" | "boolean" | "time";
 
 export interface EntityProperty {
   name: string;
