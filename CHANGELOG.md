@@ -1,3 +1,10 @@
+## [1.16.5](https://github.com/ManyDesigns/portofino-js/compare/v1.16.4...v1.16.5) (2023-12-04)
+
+
+### Bug Fixes
+
+* add "time" as PropertyType ([ea494a2](https://github.com/ManyDesigns/portofino-js/commit/ea494a2ff41bb98d4baf43069af687383a83974d))
+
 ## [1.16.4](https://github.com/ManyDesigns/portofino-js/compare/v1.16.3...v1.16.4) (2023-10-16)
 
 
