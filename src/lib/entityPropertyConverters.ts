@@ -12,9 +12,10 @@ export function getTypeFromJavaType(type: string): PropertyType {
       return 'boolean';
     case 'java.sql.Date':
     case 'java.sql.Timestamp':
-    case 'java.sql.Time':
     case 'java.util.Date':
       return 'date';
+    case 'java.sql.Time':
+      return 'time';
     default:
       console.warn(
         `[Portofino] Unknown attribute type ${type} fallback to string`
@@ -26,7 +27,7 @@ export function getTypeFromJavaType(type: string): PropertyType {
 export function convertValueToJSType(type: PropertyType, value: any): any {
   if (value == null || value == undefined)
     return null;
-    
+
   switch (type) {
     case 'date':
       return value ? new Date(value) : null;
