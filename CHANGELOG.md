@@ -1,3 +1,10 @@
+## [1.16.6](https://github.com/ManyDesigns/portofino-js/compare/v1.16.5...v1.16.6) (2023-12-11)
+
+
+### Bug Fixes
+
+* add "time" into entityPropertyConverters.ts ([23b35b3](https://github.com/ManyDesigns/portofino-js/commit/23b35b3ff8a17d09f398e4dd0db4013518c0a156))
+
 ## [1.16.5](https://github.com/ManyDesigns/portofino-js/compare/v1.16.4...v1.16.5) (2023-12-04)
 
 
