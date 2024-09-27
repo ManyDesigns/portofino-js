@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -35,7 +35,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
