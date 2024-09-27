@@ -1,3 +1,10 @@
+## [1.16.7](https://github.com/ManyDesigns/portofino-js/compare/v1.16.6...v1.16.7) (2024-09-27)
+
+
+### Bug Fixes
+
+* property type on search with min/max values ([74b9af3](https://github.com/ManyDesigns/portofino-js/commit/74b9af34868d902f580d933a24f9bbc2aa8be5ae))
+
 ## [1.16.6](https://github.com/ManyDesigns/portofino-js/compare/v1.16.5...v1.16.6) (2023-12-11)
 
 
