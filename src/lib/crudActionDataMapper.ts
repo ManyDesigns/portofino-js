@@ -48,7 +48,6 @@ export function makeSortObj(sortProperty: {
 
 export function makeSearchObj(filters: object, properties: EntityProperty[]) {
   const searchObj: any = {};
-
   if (!filters) return {};
 
   Object.entries(filters).forEach(([key, value]) => {
@@ -69,13 +68,13 @@ export function makeSearchObj(filters: object, properties: EntityProperty[]) {
       searchObj[`search_${key}`] = value.value;
       return;
     }
-
-    //TODO: Funziona con le date, ma non con i numeri (da questo punto basarsi su pros?)
+    
+    let type = properties.find((p) => p.name === key)?.type || 'date';
     if (value.min)
-      searchObj[`search_${key}_min`] = convertJSTypeToValue('date', value.min);
+      searchObj[`search_${key}_min`] = convertJSTypeToValue(type, value.min);
 
     if (value.max)
-      searchObj[`search_${key}_max`] = convertJSTypeToValue('date', value.max);
+      searchObj[`search_${key}_max`] = convertJSTypeToValue(type, value.max);
 
     if (value.value !== undefined) searchObj[`search_${key}`] = value.value;
   });
